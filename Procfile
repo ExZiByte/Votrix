@@ -1,0 +1,1 @@
+worker: java -jar target/Votrix-1.0-SNAPSHOT-shaded.jar

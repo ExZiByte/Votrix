@@ -24,7 +24,7 @@ public class Tempmute extends ListenerAdapter {
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)){
                 if(args[1].equalsIgnoreCase("help")){
-                    eb.setDescription("Tempmute Help\n\n```\n~tempmute @member <length><length multiplier> [reason]\n```");
+                    eb.setDescription("Tempmute Help\n```\n~tempmute @member <length><length multiplier> [reason]\n```");
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Tempmute Help", event.getJDA().getSelfUser().getEffectiveAvatarUrl());

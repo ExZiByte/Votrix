@@ -24,18 +24,26 @@ public class Tempmute extends ListenerAdapter {
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)){
                 if(args[1].equalsIgnoreCase("help")){
-                    eb.setDescription("Tempmute Help\n```\n~tempmute @member <length><length multiplier> [reason]\n```");
+                    eb.setDescription("Tempmute Help\n```\n~tempmute @member <length><length multiplier> [reason]\n<> | Required\n[] | Optional\n```");
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Tempmute Help", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                        eb.clear();
-                       message.delete().queueAfter(10, TimeUnit.SECONDS);
+                       message.delete().queueAfter(20, TimeUnit.SECONDS);
                     });
                 }
                 else if(args.length < 3){
-                    eb.setDescription("You didn't specify enough arguments");
+                    eb.setDescription("You didn't specify enough arguments. Please refer to `~tempmute help` for more information");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setTimestamp(Instant.now());
+                    eb.setFooter("Insufficient Arguments", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        eb.clear();
+                        message.delete().queueAfter(20, TimeUnit.SECONDS);
+                    });
                 }
             }
         }

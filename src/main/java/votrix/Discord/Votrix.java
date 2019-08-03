@@ -7,19 +7,29 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
-import votrix.Discord.listeners.OnReady;
-import votrix.Discord.listeners.GuildMemberJoin;
-import votrix.Discord.listeners.GuildMemberLeave;
+import votrix.Discord.listeners.*;
+import votrix.Discord.commands.*;
 
 public class Votrix {
     public static void main(String[] args) throws LoginException, RateLimitedException, InterruptedException{
-        final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("TOKEN"));
+        final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("VOTRIXTOKEN").toString());
 
         votrix.setGame(Game.watching("the loading bar!"));
         votrix.setStatus(OnlineStatus.DO_NOT_DISTURB);
-        votrix.addEventListener(new OnReady());
+
+        //Commands
+        //Moderation
+        votrix.addEventListener(new Ban());
+        votrix.addEventListener(new Clear());
+        votrix.addEventListener(new Mute());
+        votrix.addEventListener(new Softban());
+
+
+        //Misc Event Listeners
+        votrix.addEventListener(new Ready());
         votrix.addEventListener(new GuildMemberJoin());
         votrix.addEventListener(new GuildMemberLeave());
+
         
 
         votrix.build();

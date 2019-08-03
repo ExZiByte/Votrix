@@ -10,11 +10,12 @@ import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.Data;
 
-public class OnReady extends ListenerAdapter {
+public class Ready extends ListenerAdapter {
 
     public void onReady(ReadyEvent event){
         Data data = new Data();
-        Game[] games = { Game.playing("with Somato Setchup"), Game.playing("with Biscuits"), Game.watching("Toe Tucks"), Game.watching("https://twitch.tv/kylaak_") };
+        //Game[] games = { Game.playing("with Somato Setchup"), Game.playing("with Biscuits"), Game.watching("Toe Tucks"), Game.watching("https://twitch.tv/kylaak_") };
+        Game[] games = {Game.playing("on the developmentally delayed track")};
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(new Runnable() {
             @Override

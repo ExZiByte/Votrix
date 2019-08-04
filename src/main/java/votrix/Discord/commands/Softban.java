@@ -31,7 +31,7 @@ public class Softban extends ListenerAdapter {
                 if (args.length < 2) {
                     eb.setDescription("You didn't specify enough arguments \n" + data.prefix + "softban @<member>");
                     eb.setColor(0xff5555);
-                    eb.setFooter("Insufficient Arguments", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
     
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -46,13 +46,13 @@ public class Softban extends ListenerAdapter {
                             + "\n\n Reason:\n```\nThere was no reason specified\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName() + " Invite](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")","") + " \"Invite Link for " + event.getGuild().getName() + "\")");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've softbanned: " + mentioned.getAsMention() + " \n\nReason: \n```\nNo reason specified\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -75,13 +75,13 @@ public class Softban extends ListenerAdapter {
                     banned.setDescription("You've been softbanned from: " + event.getGuild().getName() + " \n\nReason: \n```\n" + reason + "\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName().toString() + " Link](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")","") + " \"Invite Link for " + event.getGuild().getName() + "\")");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Softbanned",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've softbanned: " + mentioned.getAsMention() + " \n\nReason:\n```\n" + reason + "\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -101,7 +101,7 @@ public class Softban extends ListenerAdapter {
                 eb.setDescription(event.getMember().getAsMention()
                             + ", You don't have the permission to ban members from this guild.");
                     eb.setColor(0xff5555);
-                    eb.setFooter("Insufficient Permissions", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);

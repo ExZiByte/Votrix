@@ -1,5 +1,7 @@
 package votrix.Discord;
 
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+
 import java.util.Random;
 
 public class Data {
@@ -13,4 +15,9 @@ public class Data {
 
         return rand_num;
     }
+
+    public static String getSelfAvatar(GuildMessageReceivedEvent event){
+        return event.getJDA().getSelfUser().getEffectiveAvatarUrl();
+    }
+
 }

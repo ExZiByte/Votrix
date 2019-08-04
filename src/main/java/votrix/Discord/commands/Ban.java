@@ -28,7 +28,7 @@ public class Ban extends ListenerAdapter {
                 if (args.length < 2) {
                     eb.setDescription("You didn't specify enough arguments");
                     eb.setColor(0xff5555);
-                    eb.setFooter("Insufficient Arguments", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -42,13 +42,13 @@ public class Ban extends ListenerAdapter {
                             + "\n\nReason: \n```\nThere was no reason specified\n```");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Banned",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've banned: " + mentioned.getAsMention() + "\n\nReason:\n```\nNo reason specified\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Ban",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -69,13 +69,13 @@ public class Ban extends ListenerAdapter {
                     banned.setDescription("You've been banned from: " + event.getGuild().getName() + "\n\nReason:\n```\n" + reason + "\n```");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Banned",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've banned: " + mentioned.getAsMention() + " \n\nReason: \n```\n" + reason + "\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Ban",
-                            event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -94,7 +94,7 @@ public class Ban extends ListenerAdapter {
                 eb.setDescription(event.getMember().getAsMention()
                         + ", You dont have the permission to ban members from this guild.");
                 eb.setColor(0xff5555);
-                eb.setFooter("Insufficient Permissions", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
                 eb.setTimestamp(Instant.now());
                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                     message.delete().queueAfter(15, TimeUnit.SECONDS);

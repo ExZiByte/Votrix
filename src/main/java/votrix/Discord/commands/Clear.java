@@ -1,5 +1,6 @@
 package votrix.Discord.commands;
 
+import java.awt.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +21,7 @@ public class Clear extends ListenerAdapter {
         RoleCheck rc = new RoleCheck();
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
+        EmbedBuilder success = new EmbedBuilder();
         if (args[0].equalsIgnoreCase(data.prefix + "clear")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
@@ -39,7 +41,7 @@ public class Clear extends ListenerAdapter {
                         if (messageCount < 2) {
                             eb.setDescription("Too few messages to delete. Minimum amount of messages I can delete is 2");
                             eb.setColor(0xff5555);
-                            eb.setFooter(event.getJDA().getSelfUser().getName() + ", Too Few Messages to Delete", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            eb.setFooter(event.getJDA().getSelfUser().getName() + ", Too Few Messages to Delete", data.getSelfAvatar(event));
                             eb.setTimestamp(Instant.now());
 
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -64,9 +66,17 @@ public class Clear extends ListenerAdapter {
                             eb.setColor(0x4fff45);
                             eb.setFooter(event.getJDA().getSelfUser().getName() + ", Clear Messages", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                             eb.setTimestamp(Instant.now());
-                            
+
+                            success.setDescription(event.getMember().getAsMention() + " deleted " + messageCount.toString() + " messages from: " + event.getChannel().getAsMention());
+                            success.setColor(new Color(data.getColor()));
+                            success.setFooter(event.getJDA().getSelfUser().getName() + ", Clear Messages", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                            success.setTimestamp(Instant.now());
+
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(15, TimeUnit.SECONDS);
+                                event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                   success.clear();
+                                });
                                 eb.clear();
                             });
                         }

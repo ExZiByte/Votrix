@@ -1,5 +1,6 @@
 package votrix.Discord.commands;
 
+import java.awt.*;
 import java.time.Instant;
 import java.util.EnumSet;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Mute extends ListenerAdapter {
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder muted = new EmbedBuilder();
+        EmbedBuilder success = new EmbedBuilder();
         Role muteRole;
 
         if (args[0].equalsIgnoreCase(data.prefix + "mute")) {
@@ -31,8 +33,8 @@ public class Mute extends ListenerAdapter {
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {
                     eb.setDescription("You didn't specify enough arguments \n" + data.prefix + "mute @<member>");
-                    eb.setColor(0xff5555);
-                    eb.setFooter("Insufficient Arguments", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -70,17 +72,22 @@ public class Mute extends ListenerAdapter {
                         // Build Information Embed to be sent to muted user
                         muted.setDescription("You've been muted on: " + event.getGuild().getName()
                                 + "\n\nReason: \n```\nThere was no reason specified\n```");
-                        muted.setColor(0xff5555);
+                        muted.setColor(new Color(data.getColor()));
                         muted.setFooter(event.getJDA().getSelfUser().getName() + " Muted",
-                                event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                                data.getSelfAvatar(event));
                         muted.setTimestamp(Instant.now());
 
                         // Build Information Embed to be sent to server channel
                         eb.setDescription("You've muted: " + mentioned.getAsMention() + "\n\nReason:\n```\nNo reason specified\n```");
                         eb.setColor(0x4fff45);
                         eb.setFooter(event.getJDA().getSelfUser().getName() + " Mute",
-                                event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                                data.getSelfAvatar(event));
                         eb.setTimestamp(Instant.now());
+
+                        success.setDescription(event.getMember().getAsMention() + " muted " + mentioned.getAsMention() + "\n\nReason: \n```No reason specified\n```");
+                        success.setColor(new Color(data.getColor()));
+                        success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
+                        success.setTimestamp(Instant.now());
 
                         mentioned.getUser().openPrivateChannel().queue((channel) -> {
                             channel.sendMessage(muted.build()).queue();
@@ -89,6 +96,9 @@ public class Mute extends ListenerAdapter {
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(20, TimeUnit.SECONDS);
                                 eb.clear();
+                                event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                    success.clear();
+                                });
                                 event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             });
                         });
@@ -105,9 +115,9 @@ public class Mute extends ListenerAdapter {
                             // Build Information Embed to be sent to kicked user
                             muted.setDescription("You've been muted on: " + event.getGuild().getName()
                                     + "\n\nReason: \n```\nThere was no reason specified\n```");
-                            muted.setColor(0xff5555);
+                            muted.setColor(new Color(data.getColor()));
                             muted.setFooter(event.getJDA().getSelfUser().getName() + " Muted",
-                                    event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                                    data.getSelfAvatar(event));
                             muted.setTimestamp(Instant.now());
 
                             // Build Information Embed to be to server channel
@@ -115,8 +125,13 @@ public class Mute extends ListenerAdapter {
                                     "You've muted: " + mentioned.getAsMention() + "\n\nReason:\n```\nNo reason specified\n```");
                             eb.setColor(0x4fff45);
                             eb.setFooter(event.getJDA().getSelfUser().getName() + " Mute",
-                                    event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                                    data.getSelfAvatar(event));
                             eb.setTimestamp(Instant.now());
+
+                            success.setDescription(event.getMember().getAsMention() + " muted " + mentioned.getAsMention() + "\n\nReason: \n```No reason specified\n```");
+                            success.setColor(new Color(data.getColor()));
+                            success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
+                            success.setTimestamp(Instant.now());
 
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
@@ -125,14 +140,17 @@ public class Mute extends ListenerAdapter {
                                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                     message.delete().queueAfter(20, TimeUnit.SECONDS);
                                     eb.clear();
+                                    event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                        success.clear();
+                                    });
                                     event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 });
                             });
                         } else {
                             eb.setDescription(mentioned.getAsMention() + " is already muted!");
-                            eb.setColor(0xff5555);
+                            eb.setColor(new Color(data.getColor()));
                             eb.setFooter(event.getJDA().getSelfUser().getName() + " Mute",
-                                    event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                                    data.getSelfAvatar(event));
                             eb.setTimestamp(Instant.now());
 
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -146,8 +164,7 @@ public class Mute extends ListenerAdapter {
             } else {
                 eb.setDescription(event.getMember().getAsMention()
                         + ", You dont have the permission to mute members on this guild.");
-                eb.setColor(0xff5555);
-                eb.setFooter("Insufficient Permissions", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
                 eb.setTimestamp(Instant.now());
                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                     message.delete().queueAfter(15, TimeUnit.SECONDS);

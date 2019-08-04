@@ -59,7 +59,7 @@ public class Mute extends ListenerAdapter {
                                         Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(channel.getParent().getId().equals("579392397189054465")){
+                            if(!    channel.getParent().getId().equals("579392397189054465")){
                                 channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
                             }
                         }
@@ -107,7 +107,7 @@ public class Mute extends ListenerAdapter {
                         muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(channel.getParent().getId().equals("579392397189054465")){
+                            if(!channel.getParent().getId().equals("579392397189054465")){
                                 channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
                             }
                         }
@@ -176,7 +176,7 @@ public class Mute extends ListenerAdapter {
                             Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(channel.getParent().getId().equals("579392397189054465")){
+                            if(!channel.getParent().getId().equals("579392397189054465")){
                                 channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
                             }
                         }
@@ -224,7 +224,7 @@ public class Mute extends ListenerAdapter {
                         muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(channel.getParent().getId().equals("579392397189054465")){
+                            if(!channel.getParent().getId().equals("579392397189054465")){
                                 channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
                             }
                         }

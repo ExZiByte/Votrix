@@ -23,11 +23,11 @@ public class Tempmute extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder muted = new EmbedBuilder();
         Role muteRole;
-        if(args[0].equalsIgnoreCase(data.getPrefix(event) + "tempmute")){
+        if(args[0].equalsIgnoreCase(data.getPrefix() + "tempmute")){
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)){
                 if(args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments. Please refer to `~tempmute help` for more information");
+                    eb.setDescription("You didn't specify enough arguments. Please refer to " + data.getPrefix() + "`tempmute help` for more information");
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));

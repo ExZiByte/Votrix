@@ -22,7 +22,7 @@ public class Ban extends ListenerAdapter {
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder banned = new EmbedBuilder();
-        if (args[0].equalsIgnoreCase(data.getPrefix(event) + "ban")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "ban")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)) {
                 if (args.length < 2) {

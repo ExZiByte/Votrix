@@ -13,7 +13,7 @@ public class Data {
         return event.getGuild().getTextChannelById("598948078741094400");
     }
 
-    public static String getPrefix(GuildMessageReceivedEvent event){
+    public static String getPrefix(){
         String prefix;
         SQLDriver sql = new SQLDriver();
         try {

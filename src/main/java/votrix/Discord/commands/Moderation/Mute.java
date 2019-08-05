@@ -14,7 +14,6 @@ import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.Data;
@@ -32,11 +31,11 @@ public class Mute extends ListenerAdapter {
         EmbedBuilder success = new EmbedBuilder();
         Role muteRole;
 
-        if (args[0].equalsIgnoreCase(data.getPrefix(event) + "mute")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "mute")) {
                 event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix(event) + "mute @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "mute @<member>");
                     eb.setColor(new Color(data.getColor()));
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());

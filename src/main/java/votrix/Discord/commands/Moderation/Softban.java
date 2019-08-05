@@ -25,11 +25,11 @@ public class Softban extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder banned = new EmbedBuilder();
 
-        if (args[0].equalsIgnoreCase(data.getPrefix(event) + "softban")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "softban")) {
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)){
                 if (args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix(event) + "softban @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "softban @<member>");
                     eb.setColor(0xff5555);
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());

@@ -10,9 +10,9 @@ public class SQLDriver {
 
     static{
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/Votrix");
+        config.setJdbcUrl("jdbc:mysql://votrix.tk:3306/Votrix");
         config.setUsername("votrix");
-        config.setPassword("7T$49rXF#DhjzfFjn4U85NsJJN63v9BFuQ3wF@f");
+        config.setPassword(System.getenv("VOTRIXSQLPASSWORD"));
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

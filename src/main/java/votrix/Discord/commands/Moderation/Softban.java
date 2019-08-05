@@ -13,7 +13,6 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.Data;
-import votrix.Discord.Votrix;
 import votrix.Discord.utils.RoleCheck;
 // Lines 41 and 70 need special attention in this class
 
@@ -22,16 +21,15 @@ public class Softban extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
-        Votrix votrix = new Votrix();
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder banned = new EmbedBuilder();
 
-        if (args[0].equalsIgnoreCase(votrix.prefix + "softban")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "softban")) {
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)){
                 if (args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + votrix.prefix + "softban @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "softban @<member>");
                     eb.setColor(0xff5555);
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());

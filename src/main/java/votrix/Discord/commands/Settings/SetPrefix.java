@@ -4,7 +4,6 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.Data;
-import votrix.Discord.Votrix;
 import votrix.Discord.utils.RoleCheck;
 
 import java.awt.*;
@@ -15,11 +14,10 @@ public class SetPrefix extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event){
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
-        Votrix votrix = new Votrix();
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
-        if(args[0].equals(votrix.prefix + "setprefix")) {
+        if(args[0].equals(data.getPrefix() + "setprefix")) {
             if (rc.isOwner(event) || rc.isDeveloper(event)) {
                 data.setPrefix(args[1]);
                 eb.setDescription("Successfully set the prefix to `" + args[1] + "`");

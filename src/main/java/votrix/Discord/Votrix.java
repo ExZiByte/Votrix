@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import votrix.Discord.commands.Moderation.*;
+import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.listeners.*;
 
 public class Votrix {
@@ -25,6 +26,8 @@ public class Votrix {
         votrix.addEventListener(new Softban());
         votrix.addEventListener(new Tempmute());
 
+        //Settings
+        votrix.addEventListener(new SetPrefix());
 
         //Misc Event Listeners
         votrix.addEventListener(new Ready());

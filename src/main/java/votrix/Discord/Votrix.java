@@ -37,5 +37,6 @@ public class Votrix {
         
 
         votrix.build();
+        System.out.println("Loaded");
     }
 }

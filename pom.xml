@@ -41,13 +41,6 @@
             <version>2.7.8</version>
             <scope>compile</scope>
         </dependency>
-
-        <!-- SLF4J SHUSHHH THINGY -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-            <version>1.7.22</version>
-        </dependency>
     </dependencies>
 
     <build>

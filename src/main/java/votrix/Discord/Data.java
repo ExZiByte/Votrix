@@ -4,7 +4,10 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import votrix.Discord.utils.SQLDriver;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
 public class Data {
@@ -17,8 +20,14 @@ public class Data {
         String prefix;
         SQLDriver sql = new SQLDriver();
         try {
-            prefix = sql.getConn().createStatement().executeQuery("SELECT * FROM `information`").getString("prefix");
-            return prefix;
+            Connection conn = sql.getConn();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `information`");
+
+            while(rs.next()) {
+                prefix = rs.getString("prefix");
+                return prefix;
+            }
         } catch(SQLException e){
             e.printStackTrace();
         }

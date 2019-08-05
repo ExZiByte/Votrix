@@ -17,6 +17,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.Data;
+import votrix.Discord.Votrix;
 import votrix.Discord.utils.RoleCheck;
 
 public class Mute extends ListenerAdapter {
@@ -24,6 +25,7 @@ public class Mute extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
+        Votrix votrix = new Votrix();
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
 
@@ -31,11 +33,11 @@ public class Mute extends ListenerAdapter {
         EmbedBuilder success = new EmbedBuilder();
         Role muteRole;
 
-        if (args[0].equalsIgnoreCase(data.getPrefix() + "mute")) {
+        if (args[0].equalsIgnoreCase(votrix.prefix + "mute")) {
                 event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "mute @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + votrix.prefix + "mute @<member>");
                     eb.setColor(new Color(data.getColor()));
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());

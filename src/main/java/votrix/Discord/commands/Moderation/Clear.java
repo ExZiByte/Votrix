@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.Data;
+import votrix.Discord.Votrix;
 import votrix.Discord.utils.RoleCheck;
 
 public class Clear extends ListenerAdapter {
@@ -20,9 +21,10 @@ public class Clear extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         RoleCheck rc = new RoleCheck();
         Data data = new Data();
+        Votrix votrix = new Votrix();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
-        if (args[0].equalsIgnoreCase(data.getPrefix() + "clear")) {
+        if (args[0].equalsIgnoreCase(votrix.prefix + "clear")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {

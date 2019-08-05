@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.Data;
+import votrix.Discord.Votrix;
 import votrix.Discord.utils.RoleCheck;
 
 public class Ban extends ListenerAdapter {
@@ -19,10 +20,11 @@ public class Ban extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
+        Votrix votrix = new Votrix();
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder banned = new EmbedBuilder();
-        if (args[0].equalsIgnoreCase(data.getPrefix() + "ban")) {
+        if (args[0].equalsIgnoreCase(votrix.prefix + "ban")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)) {
                 if (args.length < 2) {

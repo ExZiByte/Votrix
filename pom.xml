@@ -19,10 +19,34 @@
         </repository>
     </repositories>
     <dependencies>
+        <!-- JDA Java Discord API -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>3.8.3_464</version>
+        </dependency>
+
+        <!-- JDBC Java Database Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- HikariCP Connection Pooling Add-On for JDBC -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.7.8</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- SLF4J SHUSHHH THINGY -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.22</version>
         </dependency>
     </dependencies>
 

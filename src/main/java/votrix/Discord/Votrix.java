@@ -7,12 +7,12 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import votrix.Discord.commands.Moderation.*;
 import votrix.Discord.listeners.*;
-import votrix.Discord.commands.*;
 
 public class Votrix {
     public static void main(String[] args) throws LoginException, RateLimitedException, InterruptedException{
-        final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("VOTRIXTOKEN").toString());
+        final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("VOTRIXTOKEN"));
 
         votrix.setGame(Game.watching("the loading bar!"));
         votrix.setStatus(OnlineStatus.DO_NOT_DISTURB);

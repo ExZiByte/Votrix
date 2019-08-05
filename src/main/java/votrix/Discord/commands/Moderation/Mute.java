@@ -1,4 +1,4 @@
-package votrix.Discord.commands;
+package votrix.Discord.commands.Moderation;
 
 import java.awt.*;
 import java.time.Instant;
@@ -32,11 +32,11 @@ public class Mute extends ListenerAdapter {
         EmbedBuilder success = new EmbedBuilder();
         Role muteRole;
 
-        if (args[0].equalsIgnoreCase(data.prefix + "mute")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix(event) + "mute")) {
                 event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + data.prefix + "mute @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix(event) + "mute @<member>");
                     eb.setColor(new Color(data.getColor()));
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
@@ -96,7 +96,7 @@ public class Mute extends ListenerAdapter {
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(20, TimeUnit.SECONDS);
                                 eb.clear();
-                                event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                     success.clear();
                                 });
                                 event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
@@ -142,7 +142,7 @@ public class Mute extends ListenerAdapter {
                                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                     message.delete().queueAfter(20, TimeUnit.SECONDS);
                                     eb.clear();
-                                    event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                    data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                         success.clear();
                                     });
                                     event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
@@ -213,7 +213,7 @@ public class Mute extends ListenerAdapter {
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(20, TimeUnit.SECONDS);
                                 eb.clear();
-                                event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                     success.clear();
                                 });
                                 event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
@@ -259,7 +259,7 @@ public class Mute extends ListenerAdapter {
                                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                     message.delete().queueAfter(20, TimeUnit.SECONDS);
                                     eb.clear();
-                                    event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                    data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                         success.clear();
                                     });
                                     event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();

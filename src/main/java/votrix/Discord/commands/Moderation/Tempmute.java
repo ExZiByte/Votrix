@@ -1,4 +1,4 @@
-package votrix.Discord.commands;
+package votrix.Discord.commands.Moderation;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
@@ -23,7 +23,7 @@ public class Tempmute extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder muted = new EmbedBuilder();
         Role muteRole;
-        if(args[0].equalsIgnoreCase(data.prefix + "tempmute")){
+        if(args[0].equalsIgnoreCase(data.getPrefix(event) + "tempmute")){
             event.getMessage().delete().queue();
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)){
                 if(args.length < 2) {

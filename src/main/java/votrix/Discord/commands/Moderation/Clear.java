@@ -1,4 +1,4 @@
-package votrix.Discord.commands;
+package votrix.Discord.commands.Moderation;
 
 import java.awt.*;
 import java.time.Instant;
@@ -22,7 +22,7 @@ public class Clear extends ListenerAdapter {
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
-        if (args[0].equalsIgnoreCase(data.prefix + "clear")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix(event) + "clear")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
                 if (args.length < 2) {
@@ -74,7 +74,7 @@ public class Clear extends ListenerAdapter {
 
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(15, TimeUnit.SECONDS);
-                                event.getGuild().getTextChannelById("598948078741094400").sendMessage(success.build()).queue((message2) -> {
+                                data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                    success.clear();
                                 });
                                 eb.clear();

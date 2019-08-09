@@ -73,12 +73,12 @@ public class Tempmute extends ListenerAdapter {
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
 
-                    muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getAsMention() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                    muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
                     muted.setColor(new Color(data.getColor()));
                     muted.setTimestamp(Instant.now());
                     muted.setFooter("Tempmuted", data.getSelfAvatar(event));
 
-                    success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getAsMention() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                    success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: No reason specified\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
                     success.setColor(new Color(data.getColor()));
                     success.setTimestamp(Instant.now());
                     success.setFooter("Tempmute", data.getSelfAvatar(event));
@@ -107,6 +107,7 @@ public class Tempmute extends ListenerAdapter {
             @Override
             public void run() {
                 event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
+                mentioned.getUser().openPrivateChannel().complete().sendMessage("You have been unmuted").queue();
             }
         }, 0, Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
     }

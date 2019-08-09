@@ -101,15 +101,8 @@ public class Tempmute extends ListenerAdapter {
 
     private static void mute(GuildMessageReceivedEvent event ,String args, Member mentioned){
         event.getGuild().getController().addSingleRoleToMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
-
-        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
-                mentioned.getUser().openPrivateChannel().complete().sendMessage("You have been unmuted").queue();
-            }
-        }, 0, Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
+        event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queueAfter(Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
+        mentioned.getUser().openPrivateChannel().complete().sendMessage("You have been unmuted").queueAfter(Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
     }
 
 }

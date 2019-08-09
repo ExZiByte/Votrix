@@ -42,7 +42,7 @@ public class Data {
         try {
             Connection conn = sql.getConn();
             Statement stmt = conn.createStatement();
-            stmt.execute("UPDATE `information` SET 'prefix' = " + args);
+            stmt.execute("UPDATE `information` SET `prefix`= " + args);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();

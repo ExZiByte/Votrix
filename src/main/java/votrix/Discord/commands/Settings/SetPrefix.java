@@ -17,7 +17,7 @@ public class SetPrefix extends ListenerAdapter {
         RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
-        if(args[0].equals(data.getPrefix() + "setprefix")) {
+        if(args[0].equalsIgnoreCase(data.getPrefix() + "setprefix")) {
             if (rc.isOwner(event) || rc.isDeveloper(event)) {
                 data.setPrefix(args[1]);
                 eb.setDescription("Successfully set the prefix to `" + args[1] + "`");

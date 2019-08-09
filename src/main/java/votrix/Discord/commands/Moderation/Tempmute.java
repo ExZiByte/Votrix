@@ -86,9 +86,9 @@ public class Tempmute extends ListenerAdapter {
                     mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
                        muted.clear();
                        mute(event, args[2], mentioned);
-                       message.delete().queueAfter(20, TimeUnit.SECONDS);
                        event.getChannel().sendMessage(eb.build()).queue((message1) -> {
                            eb.clear();
+                           message1.delete().queueAfter(20, TimeUnit.SECONDS);
                            data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                success.clear();
                            });

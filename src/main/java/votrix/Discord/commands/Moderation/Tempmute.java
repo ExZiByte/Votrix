@@ -261,6 +261,7 @@ public class Tempmute extends ListenerAdapter {
                                     });
                                 });
                             });
+                            reason = "";
                         }
                     }
                 }

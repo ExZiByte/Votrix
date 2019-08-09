@@ -36,7 +36,7 @@ public class Tempmute extends ListenerAdapter {
                         eb.clear();
                         message.delete().queueAfter(20, TimeUnit.SECONDS);
                     });
-                } else if(args.length > 2 && args.length < 3){
+                } else if(args.length < 3){
                     if (args[1].equalsIgnoreCase("help")) {
                         eb.setDescription("Tempmute Help\n```\n~tempmute @member <length><length multiplier> [reason]\n<> | Required\n[] | Optional\n```");
                         eb.setColor(new Color(data.getColor()));

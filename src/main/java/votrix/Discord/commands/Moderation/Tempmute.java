@@ -1,6 +1,8 @@
 package votrix.Discord.commands.Moderation;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
@@ -13,6 +15,8 @@ import votrix.Discord.utils.Time;
 import java.awt.*;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -65,35 +69,200 @@ public class Tempmute extends ListenerAdapter {
                         });
                     }
                 } else if(args.length == 3) {
-                    Member mentioned = event.getMessage().getMentionedMembers().get(0);
-                    Time time = new Time();
+                    List<Role> roles = event.getGuild().getRolesByName("Muted", true);
+                    if(roles.size() < 1){
 
-                    eb.setDescription("You have tempmuted " + mentioned.getAsMention() + "\n\nReason: \n```\nNo reason specified\n```");
-                    eb.setColor(new Color(data.getColor()));
-                    eb.setTimestamp(Instant.now());
-                    eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
+                        muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
 
-                    muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
-                    muted.setColor(new Color(data.getColor()));
-                    muted.setTimestamp(Instant.now());
-                    muted.setFooter("Tempmuted", data.getSelfAvatar(event));
+                        muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
+                            Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
+                            Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,
+                            Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
 
-                    success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: No reason specified\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
-                    success.setColor(new Color(data.getColor()));
-                    success.setTimestamp(Instant.now());
-                    success.setFooter("Tempmute", data.getSelfAvatar(event));
+                        for (Channel channel : event.getGuild().getTextChannels()) {
+                            if(!channel.getParent().getId().equals("579392397189054465")){
+                                channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
+                            }
+                        }
 
-                    mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
-                       muted.clear();
-                       mute(event, args[2], mentioned);
-                       event.getChannel().sendMessage(eb.build()).queue((message1) -> {
-                           eb.clear();
-                           message1.delete().queueAfter(20, TimeUnit.SECONDS);
-                           data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
-                               success.clear();
-                           });
-                       });
-                    });
+                        event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
+                            message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        });
+
+                        Member mentioned = event.getMessage().getMentionedMembers().get(0);
+                        Time time = new Time();
+
+                        eb.setDescription("You have tempmuted " + mentioned.getAsMention() + "\n\nReason: \n```\nNo reason specified\n```");
+                        eb.setColor(new Color(data.getColor()));
+                        eb.setTimestamp(Instant.now());
+                        eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
+
+                        muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                        muted.setColor(new Color(data.getColor()));
+                        muted.setTimestamp(Instant.now());
+                        muted.setFooter("Tempmuted", data.getSelfAvatar(event));
+
+                        success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: No reason specified\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
+                        success.setColor(new Color(data.getColor()));
+                        success.setTimestamp(Instant.now());
+                        success.setFooter("Votrix Tempmute Log", data.getSelfAvatar(event));
+
+                        mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
+                            muted.clear();
+                            mute(event, args[2], mentioned);
+                            event.getChannel().sendMessage(eb.build()).queue((message1) -> {
+                                eb.clear();
+                                message1.delete().queueAfter(20, TimeUnit.SECONDS);
+                                data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
+                                    success.clear();
+                                });
+                            });
+                        });
+
+                    } else {
+
+                        Member mentioned = event.getMessage().getMentionedMembers().get(0);
+
+                        if(mentioned.getRoles().contains(event.getGuild().getRolesByName("Muted", false).get(0))){
+                            eb.setDescription(mentioned.getAsMention() + " is already muted");
+                            eb.setColor(new Color(data.getColor()));
+                            eb.setTimestamp(Instant.now());
+                            eb.setFooter("Already Muted", data.getSelfAvatar(event));
+
+                            event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                                message.delete().queueAfter(20, TimeUnit.SECONDS);
+                            });
+
+                        } else {
+                            Time time = new Time();
+
+                            eb.setDescription("You have tempmuted " + mentioned.getAsMention() + "\n\nReason: \n```\nNo reason specified\n```");
+                            eb.setColor(new Color(data.getColor()));
+                            eb.setTimestamp(Instant.now());
+                            eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
+
+                            muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: No reason specified\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                            muted.setColor(new Color(data.getColor()));
+                            muted.setTimestamp(Instant.now());
+                            muted.setFooter("Tempmuted", data.getSelfAvatar(event));
+
+                            success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: No reason specified\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
+                            success.setColor(new Color(data.getColor()));
+                            success.setTimestamp(Instant.now());
+                            success.setFooter("Votrix Tempmute Log", data.getSelfAvatar(event));
+
+                            mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
+                                muted.clear();
+                                mute(event, args[2], mentioned);
+                                event.getChannel().sendMessage(eb.build()).queue((message1) -> {
+                                    eb.clear();
+                                    message1.delete().queueAfter(20, TimeUnit.SECONDS);
+                                    data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
+                                        success.clear();
+                                    });
+                                });
+                            });
+                        }
+                    }
+                } else if(args.length > 3) {
+                    String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
+                    List<Role> roles = event.getGuild().getRolesByName("Muted", true);
+                    if(roles.size() < 1){
+
+                        muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
+
+                        muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
+                            Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
+                            Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,
+                            Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
+
+                        for (Channel channel : event.getGuild().getTextChannels()) {
+                            if(!channel.getParent().getId().equals("579392397189054465")){
+                                channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
+                            }
+                        }
+
+                        event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
+                            message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        });
+
+                        Member mentioned = event.getMessage().getMentionedMembers().get(0);
+                        Time time = new Time();
+
+                        eb.setDescription("You have tempmuted " + mentioned.getAsMention() + "\n\nReason: \n```\n" + reason + "\n```");
+                        eb.setColor(new Color(data.getColor()));
+                        eb.setTimestamp(Instant.now());
+                        eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
+
+                        muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: " + reason + "\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                        muted.setColor(new Color(data.getColor()));
+                        muted.setTimestamp(Instant.now());
+                        muted.setFooter("Tempmuted", data.getSelfAvatar(event));
+
+                        success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: " + reason + "\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
+                        success.setColor(new Color(data.getColor()));
+                        success.setTimestamp(Instant.now());
+                        success.setFooter("Votrix Tempmute Log", data.getSelfAvatar(event));
+
+                        mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
+                            muted.clear();
+                            mute(event, args[2], mentioned);
+                            event.getChannel().sendMessage(eb.build()).queue((message1) -> {
+                                eb.clear();
+                                message1.delete().queueAfter(20, TimeUnit.SECONDS);
+                                data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
+                                    success.clear();
+                                });
+                            });
+                        });
+
+                        reason = "";
+
+                    } else {
+
+                        Member mentioned = event.getMessage().getMentionedMembers().get(0);
+
+                        if(mentioned.getRoles().contains(event.getGuild().getRolesByName("Muted", false).get(0))){
+                            eb.setDescription(mentioned.getAsMention() + " is already muted");
+                            eb.setColor(new Color(data.getColor()));
+                            eb.setTimestamp(Instant.now());
+                            eb.setFooter("Already Muted", data.getSelfAvatar(event));
+
+                            event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                                message.delete().queueAfter(20, TimeUnit.SECONDS);
+                            });
+
+                        } else {
+                            Time time = new Time();
+
+                            eb.setDescription("You have tempmuted " + mentioned.getAsMention() + "\n\nReason: \n```\n" + reason + "\n```");
+                            eb.setColor(new Color(data.getColor()));
+                            eb.setTimestamp(Instant.now());
+                            eb.setFooter("Votrix Tempmute", data.getSelfAvatar(event));
+
+                            muted.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: " + reason + "\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+                            muted.setColor(new Color(data.getColor()));
+                            muted.setTimestamp(Instant.now());
+                            muted.setFooter("Tempmuted", data.getSelfAvatar(event));
+
+                            success.setDescription(event.getMember().getAsMention() + " has tempmuted " + mentioned.getAsMention() + "\n\nDetails: ```\nReason: " + reason + "\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
+                            success.setColor(new Color(data.getColor()));
+                            success.setTimestamp(Instant.now());
+                            success.setFooter("Votrix Tempmute Log", data.getSelfAvatar(event));
+
+                            mentioned.getUser().openPrivateChannel().complete().sendMessage(muted.build()).queue((message) -> {
+                                muted.clear();
+                                mute(event, args[2], mentioned);
+                                event.getChannel().sendMessage(eb.build()).queue((message1) -> {
+                                    eb.clear();
+                                    message1.delete().queueAfter(20, TimeUnit.SECONDS);
+                                    data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
+                                        success.clear();
+                                    });
+                                });
+                            });
+                        }
+                    }
                 }
             }
         }

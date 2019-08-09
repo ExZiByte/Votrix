@@ -165,7 +165,7 @@ public class Tempmute extends ListenerAdapter {
                         }
                     }
                 } else if(args.length > 3) {
-                    String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
+                    String reason = Arrays.stream(args).skip(3).collect(Collectors.joining(" "));
                     List<Role> roles = event.getGuild().getRolesByName("Muted", true);
                     if(roles.size() < 1){
 

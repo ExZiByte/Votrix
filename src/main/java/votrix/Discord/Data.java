@@ -37,12 +37,12 @@ public class Data {
         return null;
     }
 
-    public static void setPrefix(String args) {
+    public static void setPrefix(String prefix) {
         SQLDriver sql = new SQLDriver();
         try {
             Connection conn = sql.getConn();
             Statement stmt = conn.createStatement();
-            stmt.execute("UPDATE `information` SET `prefix`= " + args);
+            stmt.execute("UPDATE `information` SET `prefix`='" + prefix +"'");
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -26,8 +26,10 @@ public class Data {
 
             while (rs.next()) {
                 prefix = rs.getString("prefix");
+                conn.close();
                 return prefix;
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,7 +40,10 @@ public class Data {
     public static void setPrefix(String args) {
         SQLDriver sql = new SQLDriver();
         try {
-            sql.getConn().createStatement().execute("UPDATE `information` SET 'prefix' = " + args);
+            Connection conn = sql.getConn();
+            Statement stmt = conn.createStatement();
+            stmt.execute("UPDATE `information` SET 'prefix' = " + args);
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

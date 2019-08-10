@@ -250,6 +250,8 @@ public class Tempmute extends ListenerAdapter {
 
                             muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
 
+                            event.getGuild().getController().modifyRolePositions().selectPosition(event.getGuild().getRolesByName("Muted", true).get(0)).moveTo(1).queue();
+
                             muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
                                 Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
                                 Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,

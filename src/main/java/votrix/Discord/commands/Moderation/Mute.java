@@ -163,7 +163,7 @@ public class Mute extends ListenerAdapter {
                 } else if(args.length > 3){
                     if(args[2].equalsIgnoreCase("-s")){
                         List<Role> roles = event.getGuild().getRolesByName("Muted", true);
-                        String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
+                        String reason = Arrays.stream(args).skip(3).collect(Collectors.joining(" "));
 
                         if (roles.size() < 1) {
 

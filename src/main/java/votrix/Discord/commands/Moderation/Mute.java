@@ -88,6 +88,7 @@ public class Mute extends ListenerAdapter {
                         success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                         success.setTimestamp(Instant.now());
 
+                        event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                         mentioned.getUser().openPrivateChannel().queue((channel) -> {
                             channel.sendMessage(muted.build()).queue();
                             muted.clear();
@@ -98,7 +99,6 @@ public class Mute extends ListenerAdapter {
                                 data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                     success.clear();
                                 });
-                                event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             });
                         });
                     } else {
@@ -133,7 +133,7 @@ public class Mute extends ListenerAdapter {
                             success.setColor(new Color(data.getColor()));
                             success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                             success.setTimestamp(Instant.now());
-
+                            event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
                                 muted.clear();
@@ -144,7 +144,6 @@ public class Mute extends ListenerAdapter {
                                     data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                         success.clear();
                                     });
-                                    event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 });
                             });
                         } else {
@@ -206,17 +205,16 @@ public class Mute extends ListenerAdapter {
                             success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                             success.setTimestamp(Instant.now());
 
+                            event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
                                 muted.clear();
-
                                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                     message.delete().queueAfter(20, TimeUnit.SECONDS);
                                     eb.clear();
                                     data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                         success.clear();
                                     });
-                                    event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 });
                             });
                         } else {
@@ -252,6 +250,7 @@ public class Mute extends ListenerAdapter {
                                 success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                                 success.setTimestamp(Instant.now());
 
+                                event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                     channel.sendMessage(muted.build()).queue();
                                     muted.clear();
@@ -262,7 +261,6 @@ public class Mute extends ListenerAdapter {
                                         data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                             success.clear();
                                         });
-                                        event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                     });
                                 });
                             } else {
@@ -324,6 +322,7 @@ public class Mute extends ListenerAdapter {
                         success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                         success.setTimestamp(Instant.now());
 
+                        event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                         mentioned.getUser().openPrivateChannel().queue((channel) -> {
                             channel.sendMessage(muted.build()).queue();
                             muted.clear();
@@ -334,7 +333,6 @@ public class Mute extends ListenerAdapter {
                                 data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                     success.clear();
                                 });
-                                event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             });
                         });
                     } else {
@@ -370,6 +368,7 @@ public class Mute extends ListenerAdapter {
                             success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                             success.setTimestamp(Instant.now());
 
+                            event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
                                 muted.clear();
@@ -380,7 +379,6 @@ public class Mute extends ListenerAdapter {
                                     data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
                                         success.clear();
                                     });
-                                    event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 });
                             });
                         } else {

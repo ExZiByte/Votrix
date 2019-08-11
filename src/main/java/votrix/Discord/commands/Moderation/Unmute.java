@@ -1,6 +1,7 @@
 package votrix.Discord.commands.Moderation;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.utils.Data;
@@ -35,7 +36,9 @@ public class Unmute extends ListenerAdapter {
                         eb.clear();
                     });
                 } else if(args.length >= 2){
-                    String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
+                    Member mentioned = event.getMessage().getMentionedMembers().get(0);
+
+                    event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
                 }
             }
         }

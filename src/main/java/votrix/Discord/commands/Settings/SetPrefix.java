@@ -3,7 +3,7 @@ package votrix.Discord.commands.Settings;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import votrix.Discord.Data;
+import votrix.Discord.utils.Data;
 import votrix.Discord.utils.RoleCheck;
 
 import java.awt.*;

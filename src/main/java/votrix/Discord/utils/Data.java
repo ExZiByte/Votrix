@@ -1,8 +1,8 @@
-package votrix.Discord;
+package votrix.Discord.utils;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import votrix.Discord.utils.SQLDriver;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,6 +15,7 @@ public class Data {
     public static TextChannel getLogChannel(GuildMessageReceivedEvent event) {
         return event.getGuild().getTextChannelById("598948078741094400");
     }
+
 
     public static String getPrefix() {
         String prefix;

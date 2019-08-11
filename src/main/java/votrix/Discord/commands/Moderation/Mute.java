@@ -16,7 +16,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import votrix.Discord.Data;
+import votrix.Discord.utils.Data;
 import votrix.Discord.utils.RoleCheck;
 
 public class Mute extends ListenerAdapter {
@@ -200,11 +200,6 @@ public class Mute extends ListenerAdapter {
                                 data.getSelfAvatar(event));
                             eb.setTimestamp(Instant.now());
 
-                            success.setDescription(event.getMember().getAsMention() + " muted " + mentioned.getAsMention() + "\n\nReason: \n```" + reason + "\n```");
-                            success.setColor(new Color(data.getColor()));
-                            success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
-                            success.setTimestamp(Instant.now());
-
                             event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
@@ -212,9 +207,6 @@ public class Mute extends ListenerAdapter {
                                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                     message.delete().queueAfter(20, TimeUnit.SECONDS);
                                     eb.clear();
-                                    data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
-                                        success.clear();
-                                    });
                                 });
                             });
                         } else {
@@ -245,11 +237,6 @@ public class Mute extends ListenerAdapter {
                                     data.getSelfAvatar(event));
                                 eb.setTimestamp(Instant.now());
 
-                                success.setDescription(event.getMember().getAsMention() + " muted " + mentioned.getAsMention() + "\n\nReason: \n```" + reason + "\n```");
-                                success.setColor(new Color(data.getColor()));
-                                success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
-                                success.setTimestamp(Instant.now());
-
                                 event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
                                 mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                     channel.sendMessage(muted.build()).queue();
@@ -258,9 +245,6 @@ public class Mute extends ListenerAdapter {
                                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                         message.delete().queueAfter(20, TimeUnit.SECONDS);
                                         eb.clear();
-                                        data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
-                                            success.clear();
-                                        });
                                     });
                                 });
                             } else {

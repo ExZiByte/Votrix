@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import votrix.Discord.Data;
+import votrix.Discord.utils.Data;
 
 public class Ready extends ListenerAdapter {
 

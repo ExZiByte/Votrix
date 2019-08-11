@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import votrix.Discord.Data;
+import votrix.Discord.utils.Data;
 import votrix.Discord.utils.RoleCheck;
 
 public class Clear extends ListenerAdapter {

@@ -33,7 +33,7 @@ public class Embeds {
     }
     public static EmbedBuilder getMutedEmbed(GuildMessageReceivedEvent event, String[] args, String reason) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: " + reason + "\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + time.getTime(args[2]).name() + "\n```");
+        eb.setDescription("You have been tempmuted \n\nDetails: ```\nGuild: " + event.getGuild().getName() + "\nReason: " + reason + "\nExecutor: " + event.getMember().getEffectiveName() + "\nTime: " + args[2].substring(0, args[2].length() - 1) + " " + time.getTime(args[2]).name() + "\n```");
         eb.setColor(new Color(data.getColor()));
         eb.setTimestamp(Instant.now());
         eb.setFooter("Tempmuted", data.getSelfAvatar(event));

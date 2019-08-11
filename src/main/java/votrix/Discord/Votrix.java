@@ -24,6 +24,7 @@ public class Votrix {
         votrix.addEventListener(new Mute());
         votrix.addEventListener(new Softban());
         votrix.addEventListener(new Tempmute());
+        votrix.addEventListener(new Unmute());
 
         //Settings
         votrix.addEventListener(new SetPrefix());

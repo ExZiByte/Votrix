@@ -26,7 +26,7 @@ public class Unmute extends ListenerAdapter {
         if(args[0].equalsIgnoreCase(data.getPrefix() + "unmute")){
             if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)){
                 if(args.length < 2) {
-                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "mute @<member>");
+                    eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "unmute @<member>");
                     eb.setColor(new Color(data.getColor()));
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
@@ -38,6 +38,7 @@ public class Unmute extends ListenerAdapter {
                 } else if(args.length >= 2){
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
 
+                    eb.setDescription("Successfully unmuted " + mentioned.getAsMention());
                     event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
                 }
             }

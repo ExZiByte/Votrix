@@ -1,53 +1,37 @@
 package votrix.Discord.utils;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import com.mongodb.Mongo;
+import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import org.bson.Document;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Random;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class Data {
+
+    static Database db = new Database();
 
     public static TextChannel getLogChannel(GuildMessageReceivedEvent event) {
         return event.getGuild().getTextChannelById("598948078741094400");
     }
 
-
     public static String getPrefix() {
         String prefix;
-        SQLDriver sql = new SQLDriver();
-        try {
-            Connection conn = sql.getConn();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `information`");
 
-            while (rs.next()) {
-                prefix = rs.getString("prefix");
-                conn.close();
-                return prefix;
-            }
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        db.connect();
+        MongoCollection<Document> guild = db.getCollection("guild");
+        prefix = guild.find().first().getString("prefix");
+        db.close();
+        return prefix;
     }
 
     public static void setPrefix(String prefix) {
-        SQLDriver sql = new SQLDriver();
-        try {
-            Connection conn = sql.getConn();
-            Statement stmt = conn.createStatement();
-            stmt.execute("UPDATE `information` SET `prefix`='" + prefix +"'");
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        db.connect();
+        MongoCollection guild = db.getCollection("guild");
+        guild.findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
     }
 
     public static int getColor() {

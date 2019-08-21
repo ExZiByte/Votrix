@@ -8,5 +8,6 @@ public class GuildMemberJoin extends ListenerAdapter {
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         MemberCounter memberCount = new MemberCounter();
         event.getGuild().getVoiceChannelById("579403072028016652").getManager().setName("Member Count: " + memberCount.getMemberCount(event)).queue();
+
     }
 }

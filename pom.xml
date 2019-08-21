@@ -26,20 +26,11 @@
             <version>3.8.3_464</version>
         </dependency>
 
-        <!-- JDBC Java Database Connector -->
+        <!-- MongoDB Java Driver -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.13</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- HikariCP Connection Pooling Add-On for JDBC -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>3.3.1</version>
-            <scope>compile</scope>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.4.3</version>
         </dependency>
     </dependencies>
 

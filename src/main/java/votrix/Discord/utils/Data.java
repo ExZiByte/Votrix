@@ -30,8 +30,8 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        MongoCollection guild = db.getCollection("guild");
-        guild.findOneAndUpdate(eq("prefix"), eq("prefix", prefix));
+        db.getCollection("guild").findOneAndUpdate(eq("prefix", getPrefix()), eq("prefix", prefix));
+        db.close();
     }
 
     public static int getColor() {

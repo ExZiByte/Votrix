@@ -31,7 +31,7 @@ public class Data {
     public static void setPrefix(String prefix) {
         db.connect();
         MongoCollection guild = db.getCollection("guild");
-        guild.findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
+        guild.findOneAndUpdate(eq("prefix", getPrefix()), eq("$mod", prefix));
     }
 
     public static int getColor() {

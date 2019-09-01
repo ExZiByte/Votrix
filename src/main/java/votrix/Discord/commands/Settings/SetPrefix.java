@@ -39,4 +39,20 @@ public class SetPrefix extends ListenerAdapter {
             }
         }
     }
+
+    public String getName() {
+        return "Setprefix";
+    }
+
+    public String getDescription() {
+        return "Sets the prefix for all subsequent commands\n\nCurrently Disabled";
+    }
+
+    public String getRequiredRoles() {
+        return "Owner, Developer";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n" + Data.getPrefix() + "setprefix {new prefix}\n```";
+    }
 }

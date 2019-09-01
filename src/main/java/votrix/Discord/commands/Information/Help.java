@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.commands.Moderation.*;
+import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.utils.Data;
 
 import java.awt.*;
@@ -50,6 +51,17 @@ public class Help extends ListenerAdapter {
                     eb.setColor(new Color(data.getColor()));
                     eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the mute command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Mute Command Help", data.getSelfAvatar(event));
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        eb.clear();
+                    });
+                } else if(args[1].equalsIgnoreCase("setprefix")){
+                    SetPrefix command = new SetPrefix();
+                    eb.setTitle(command.getName() + " Help");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the setprefix command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setFooter("Votrix SetPrefix Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);

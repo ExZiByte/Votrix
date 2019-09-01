@@ -39,10 +39,51 @@ public class Unmute extends ListenerAdapter {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
 
                     eb.setDescription("Successfully unmuted " + mentioned.getAsMention());
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setTimestamp(Instant.now());
+                    eb.setFooter("Votrix Unmute", data.getSelfAvatar(event));
+
+                    success.setDescription(event.getMember().getAsMention() + " unmuted " + mentioned.getAsMention());
+                    success.setColor(new Color(data.getColor()));
+                    success.setTimestamp(Instant.now());
+                    success.setFooter("Votrix Unmute Log", data.getSelfAvatar(event));
+
+                    unmuted.setDescription("You've been unmuted");
+                    unmuted.setColor(new Color(data.getColor()));
+                    unmuted.setTimestamp(Instant.now());
+                    unmuted.setFooter("Votrix Unmute", data.getSelfAvatar(event));
+
                     event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
+
+                    mentioned.getUser().openPrivateChannel().complete().sendMessage(unmuted.build()).queue((message) -> {
+                        event.getChannel().sendMessage(eb.build()).queue((message1) -> {
+                            eb.clear();
+                            message.delete().queueAfter(15, TimeUnit.SECONDS);
+                            data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
+                                success.clear();
+                            });
+                        });
+                    });
+
                 }
             }
         }
+    }
+
+    public String getName() {
+        return "Unmute";
+    }
+
+    public String getDescription() {
+        return "Unmutes the specified member";
+    }
+
+    public String getRequiredRoles() {
+        return "Owner, Developer, Administrator, Moderator";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n" + Data.getPrefix() + "unmute {@member}\n```";
     }
 
 }

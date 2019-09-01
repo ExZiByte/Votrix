@@ -108,12 +108,16 @@ public class Ban extends ListenerAdapter {
         return "Ban";
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return "Bans the specified member for the specified reason if no reason is specified then the member is banned for \"No Reason Specified\".";
     }
 
-    public String getRequiredRoles(){
+    public String getRequiredRoles() {
         return "Owner, Developer, Administrator";
+    }
+
+    public String getCommandSyntax() {
+        return Data.getPrefix() + "ban {@member} [reason]";
     }
 
 }

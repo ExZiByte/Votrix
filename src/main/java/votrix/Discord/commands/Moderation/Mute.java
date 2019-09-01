@@ -405,6 +405,9 @@ public class Mute extends ListenerAdapter {
         return "Owner, Developer, Administrator, Moderator";
     }
 
+    public String getCommandSyntax() {
+        return Data.getPrefix() + "mute {@member} [reason]";
+    }
 }
 
 

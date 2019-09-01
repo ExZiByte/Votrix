@@ -16,6 +16,7 @@ import votrix.Discord.utils.RoleCheck;
 public class Clear extends ListenerAdapter {
 
     RoleCheck rc = new RoleCheck();
+
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
@@ -74,7 +75,7 @@ public class Clear extends ListenerAdapter {
                             event.getChannel().sendMessage(eb.build()).queue((message) -> {
                                 message.delete().queueAfter(15, TimeUnit.SECONDS);
                                 data.getLogChannel(event).sendMessage(success.build()).queue((message2) -> {
-                                   success.clear();
+                                    success.clear();
                                 });
                                 eb.clear();
                             });
@@ -82,7 +83,7 @@ public class Clear extends ListenerAdapter {
                     } catch (NumberFormatException nfe) {
                         eb.setDescription("`" + args[1] + "` is not a valid number. Please input a number between 2 and 100");
                         eb.setColor(0xff5555);
-                        eb.setFooter(event.getJDA().getSelfUser().getName() + ", Not a valid number",  event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                        eb.setFooter(event.getJDA().getSelfUser().getName() + ", Not a valid number", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                         eb.setTimestamp(Instant.now());
 
                         event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -94,7 +95,7 @@ public class Clear extends ListenerAdapter {
                 }
             } else {
                 eb.setDescription(event.getMember().getAsMention()
-                        + ", You dont have the permission to manage messages for this guild.");
+                    + ", You dont have the permission to manage messages for this guild.");
                 eb.setColor(0xff5555);
                 eb.setFooter("Insufficient Permissions", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                 eb.setTimestamp(Instant.now());
@@ -105,16 +106,21 @@ public class Clear extends ListenerAdapter {
             }
         }
     }
-    public String getName(){
+
+    public String getName() {
         return "Clear";
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return "Clears the specified amount of messages 2 - 100 messages at a time";
     }
 
-    public String getRequiredRoles(){
+    public String getRequiredRoles() {
         return "Owner, Developer, Administrator, Moderator";
+    }
+
+    public String getCommandSyntax() {
+        return Data.getPrefix() + "clear {2 - 100}";
     }
 
 }

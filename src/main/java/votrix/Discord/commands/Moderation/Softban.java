@@ -26,32 +26,32 @@ public class Softban extends ListenerAdapter {
 
         if (args[0].equalsIgnoreCase(data.getPrefix() + "softban")) {
             event.getMessage().delete().queue();
-            if(rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)){
+            if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)) {
                 if (args.length < 2) {
                     eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "softban @<member>");
                     eb.setColor(0xff5555);
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
-    
+
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);
                         eb.clear();
                     });
-                } else if(args.length < 3){
+                } else if (args.length < 3) {
                     Invite inviteLink = event.getGuild().getTextChannelById("594722722903490573").createInvite().setMaxUses(1).setMaxAge(null).complete();
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
 
                     banned.setDescription("You've been softbanned from: " + event.getGuild().getName()
-                            + "\n\n Reason:\n```\nThere was no reason specified\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName() + " Invite](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")","") + " \"Invite Link for " + event.getGuild().getName() + "\")");
+                        + "\n\n Reason:\n```\nThere was no reason specified\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName() + " Invite](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")", "") + " \"Invite Link for " + event.getGuild().getName() + "\")");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            data.getSelfAvatar(event));
+                        data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've softbanned: " + mentioned.getAsMention() + " \n\nReason: \n```\nNo reason specified\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            data.getSelfAvatar(event));
+                        data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -71,16 +71,16 @@ public class Softban extends ListenerAdapter {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
 
-                    banned.setDescription("You've been softbanned from: " + event.getGuild().getName() + " \n\nReason: \n```\n" + reason + "\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName().toString() + " Link](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")","") + " \"Invite Link for " + event.getGuild().getName() + "\")");
+                    banned.setDescription("You've been softbanned from: " + event.getGuild().getName() + " \n\nReason: \n```\n" + reason + "\n```\nHere is an invite link to get back on the server: \n[" + event.getGuild().getName().toString() + " Link](https://discord.gg/" + inviteLink.toString().replace("Invite(", "").replace(")", "") + " \"Invite Link for " + event.getGuild().getName() + "\")");
                     banned.setColor(0xff5555);
                     banned.setFooter(event.getJDA().getSelfUser().getName() + " Softbanned",
-                            data.getSelfAvatar(event));
+                        data.getSelfAvatar(event));
                     banned.setTimestamp(Instant.now());
 
                     eb.setDescription("You've softbanned: " + mentioned.getAsMention() + " \n\nReason:\n```\n" + reason + "\n```");
                     eb.setColor(0x4fff45);
                     eb.setFooter(event.getJDA().getSelfUser().getName() + " Softban",
-                            data.getSelfAvatar(event));
+                        data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
 
                     mentioned.getUser().openPrivateChannel().queue((channel) -> {
@@ -98,14 +98,14 @@ public class Softban extends ListenerAdapter {
                 }
             } else {
                 eb.setDescription(event.getMember().getAsMention()
-                            + ", You don't have the permission to ban members from this guild.");
-                    eb.setColor(0xff5555);
-                    eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
-                    eb.setTimestamp(Instant.now());
-                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
-                        eb.clear();
-                    });
+                    + ", You don't have the permission to ban members from this guild.");
+                eb.setColor(0xff5555);
+                eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
+                eb.setTimestamp(Instant.now());
+                event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                    message.delete().queueAfter(15, TimeUnit.SECONDS);
+                    eb.clear();
+                });
             }
         }
     }
@@ -120,6 +120,10 @@ public class Softban extends ListenerAdapter {
 
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator";
+    }
+
+    public String getCommandSyntax() {
+        return Data.getPrefix() + "softban {@member} [reason]";
     }
 
 }

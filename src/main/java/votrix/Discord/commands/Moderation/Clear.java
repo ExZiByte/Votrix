@@ -15,9 +15,9 @@ import votrix.Discord.utils.RoleCheck;
 
 public class Clear extends ListenerAdapter {
 
+    RoleCheck rc = new RoleCheck();
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
-        RoleCheck rc = new RoleCheck();
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
@@ -84,7 +84,7 @@ public class Clear extends ListenerAdapter {
                         eb.setColor(0xff5555);
                         eb.setFooter(event.getJDA().getSelfUser().getName() + ", Not a valid number",  event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                         eb.setTimestamp(Instant.now());
-                        
+
                         event.getChannel().sendMessage(eb.build()).queue((message) -> {
                             message.delete().queueAfter(15, TimeUnit.SECONDS);
                             eb.clear();
@@ -104,6 +104,17 @@ public class Clear extends ListenerAdapter {
                 });
             }
         }
+    }
+    public String getName(){
+        return "Clear";
+    }
+
+    public String getDescription(){
+        return "Clears the specified amount of messages 2 - 100 messages at a time";
+    }
+
+    public String getRequiredRoles(){
+        return "Owner, Developer, Administrator, Moderator";
     }
 
 }

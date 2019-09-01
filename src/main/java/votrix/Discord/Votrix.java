@@ -7,6 +7,8 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import votrix.Discord.commands.Information.Help;
+import votrix.Discord.commands.Miscellaneous.Suggest;
 import votrix.Discord.commands.Moderation.*;
 import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.listeners.*;
@@ -18,6 +20,12 @@ public class Votrix {
         votrix.setGame(Game.watching("the loading bar!"));
         votrix.setStatus(OnlineStatus.DO_NOT_DISTURB);
         //Commands
+        //Information
+        votrix.addEventListener(new Help());
+
+        //Miscellaneous
+        votrix.addEventListener(new Suggest());
+
         //Moderation
         votrix.addEventListener(new Ban());
         votrix.addEventListener(new Clear());
@@ -33,6 +41,7 @@ public class Votrix {
         votrix.addEventListener(new Ready());
         votrix.addEventListener(new GuildMemberJoin());
         votrix.addEventListener(new GuildMemberLeave());
+        votrix.addEventListener(new SuggestionReactAdd());
 
         
 

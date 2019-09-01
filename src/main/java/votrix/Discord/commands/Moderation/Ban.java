@@ -15,10 +15,11 @@ import votrix.Discord.utils.RoleCheck;
 
 public class Ban extends ListenerAdapter {
 
+    RoleCheck rc = new RoleCheck();
+
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
-        RoleCheck rc = new RoleCheck();
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder banned = new EmbedBuilder();
         if (args[0].equalsIgnoreCase(data.getPrefix() + "ban")) {
@@ -101,6 +102,18 @@ public class Ban extends ListenerAdapter {
                 });
             }
         }
+    }
+
+    public String getName(){
+        return "ban";
+    }
+
+    public String getDescription(){
+        return "bans the specified member for the specified reason if no reason is specified then the member is banned for \"no reason specified\"";
+    }
+
+    public String getRequiredRoles(){
+        return "Owner, Developer, Administrator";
     }
 
 }

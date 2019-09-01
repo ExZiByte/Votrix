@@ -23,7 +23,6 @@ public class Tempmute extends ListenerAdapter {
         RoleCreate create = new RoleCreate();
         Embeds embeds = new Embeds();
         EmbedBuilder eb = new EmbedBuilder();
-        Member mentioned = event.getMessage().getMentionedMembers().get(0);
         if (args[0].equalsIgnoreCase(data.getPrefix() + "tempmute")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event) || rc.isModerator(event)) {
@@ -57,6 +56,7 @@ public class Tempmute extends ListenerAdapter {
                         });
                     }
                 } else if (args.length == 3) {
+                    Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     List<Role> roles = event.getGuild().getRolesByName("Muted", true);
                     if (roles.size() < 1) {
                         create.createMutedRole(event);
@@ -90,6 +90,7 @@ public class Tempmute extends ListenerAdapter {
                         }
                     }
                 } else if (args.length > 3) {
+                    Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     if (args[3].equalsIgnoreCase("-s")) {
                         String reason = Arrays.stream(args).skip(4).collect(Collectors.joining(" "));
                         List<Role> roles = event.getGuild().getRolesByName("Muted", true);

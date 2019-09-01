@@ -39,7 +39,7 @@ public class Suggest extends ListenerAdapter {
             } else if(args.length > 1){
                 try{
                     String sug = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
-                    Webhooks webhook = new Webhooks("https://discordapp.com/api/webhooks/617180808750301184/D7h9_VMlGQlPcyjLkpv_5nagrZky0H_-MQll2kyj49fNYb5YrhsT6bwIizkTPYTppP35");
+                    Webhooks webhook = new Webhooks(System.getenv("VOTRIXSUGGESTIONWEBHOOK"));
                     webhook.setAvatarUrl(event.getMember().getUser().getEffectiveAvatarUrl());
                     webhook.setUsername(event.getMember().getUser().getName());
                     webhook.addEmbed(new Webhooks.EmbedObject()

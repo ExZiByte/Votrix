@@ -123,7 +123,7 @@ public class Softban extends ListenerAdapter {
     }
 
     public String getCommandSyntax() {
-        return Data.getPrefix() + "softban {@member} [reason]";
+        return "```\n" + Data.getPrefix() + "softban {@member} [reason]\n```";
     }
 
 }

@@ -406,7 +406,7 @@ public class Mute extends ListenerAdapter {
     }
 
     public String getCommandSyntax() {
-        return Data.getPrefix() + "mute {@member} [reason]";
+        return "```\n" + Data.getPrefix() + "mute {@member} [reason]\n```";
     }
 }
 

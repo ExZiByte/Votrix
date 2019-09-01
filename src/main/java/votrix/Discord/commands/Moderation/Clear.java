@@ -120,7 +120,7 @@ public class Clear extends ListenerAdapter {
     }
 
     public String getCommandSyntax() {
-        return Data.getPrefix() + "clear {2 - 100}";
+        return "```\n" + Data.getPrefix() + "clear {2 - 100}\n```";
     }
 
 }

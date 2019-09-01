@@ -117,7 +117,7 @@ public class Ban extends ListenerAdapter {
     }
 
     public String getCommandSyntax() {
-        return Data.getPrefix() + "ban {@member} [reason]";
+        return "```\n" + Data.getPrefix() + "ban {@member} [reason]\n```";
     }
 
 }

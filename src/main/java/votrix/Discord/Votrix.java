@@ -42,6 +42,7 @@ public class Votrix {
         votrix.addEventListener(new GuildMemberJoin());
         votrix.addEventListener(new GuildMemberLeave());
         votrix.addEventListener(new SuggestionReactAdd());
+        votrix.addEventListener(new AltReJoin());
 
         
 

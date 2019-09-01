@@ -167,4 +167,20 @@ public class Tempmute extends ListenerAdapter {
         mentioned.getUser().openPrivateChannel().complete().sendMessage("You have been unmuted").queueAfter(Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
     }
 
+    public String getName() {
+        return "Tempmute";
+    }
+
+    public String getDescription() {
+        return "Temporarily mutes the specified member for the specified amount of time and the specified reason. If no reason is specifed then the member is muted for \"No Reason Specified\"";
+    }
+
+    public String getRequiredRoles() {
+        return "Owner, Developer, Administrator, Moderator";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n" + Data.getPrefix() + "tempmute {@member} {time}{time multiplier} [reason]\n```";
+    }
+
 }

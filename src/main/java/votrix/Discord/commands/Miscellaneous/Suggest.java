@@ -4,7 +4,6 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.utils.Data;
-import votrix.Discord.utils.Time;
 import votrix.Discord.utils.Webhooks;
 
 import java.awt.*;
@@ -21,7 +20,7 @@ public class Suggest extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
-        String[] images = {"x   https://media.giphy.com/media/kc0kqKNFu7v35gPkwB/giphy.gif", "https://imgur.com/EZrGUpe", "https://imgur.com/HD4Cn57", "https://imgur.com/pe5pO1w", "https://imgur.com/3D1ZK0Z"};
+        String[] images = {"https://github.com/ExZiByte/Votrix/blob/master/huh.jpg", "https://github.com/ExZiByte/Votrix/blob/master/jackie_chan_huh.jpg", "https://github.com/ExZiByte/Votrix/blob/master/wat.png", "https://github.com/ExZiByte/Votrix/blob/master/wat_magik.png"};
         if(args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")){
             event.getMessage().delete().queue();
             if(args.length < 2){

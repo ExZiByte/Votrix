@@ -29,6 +29,7 @@ public class Votrix {
         //Moderation
         votrix.addEventListener(new Ban());
         votrix.addEventListener(new Clear());
+        votrix.addEventListener(new Kick());
         votrix.addEventListener(new Mute());
         votrix.addEventListener(new Softban());
         votrix.addEventListener(new Tempmute());

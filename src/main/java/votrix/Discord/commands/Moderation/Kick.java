@@ -111,6 +111,10 @@ public class Kick extends ListenerAdapter {
         return "Kicks the specified member for the specified reason. If no reason is specified then the member is kicked for \"No Reason Specified\".";
     }
 
+    public String getShortDescription() {
+        return "Kicks the specified member";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator";
     }

@@ -74,6 +74,10 @@ public class Suggest extends ListenerAdapter {
         return "Make a suggestion for a feature to be added to the server and or bot.";
     }
 
+    public String getShortDescription() {
+        return "Make a suggestion";
+    }
+
     public String getRequiredRoles() {
         return "Everyone";
     }

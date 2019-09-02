@@ -401,6 +401,10 @@ public class Mute extends ListenerAdapter {
         return "Mutes the specified member for the specified reason if no reason is specified then the member is muted for \"No Reason Specified\".";
     }
 
+    public String getShortDescription() {
+        return "Mutes the specified member";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator, Moderator";
     }

@@ -78,6 +78,10 @@ public class Unmute extends ListenerAdapter {
         return "Unmutes the specified member";
     }
 
+    public String getShortDescription() {
+        return getDescription();
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator, Moderator";
     }

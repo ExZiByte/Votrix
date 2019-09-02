@@ -175,6 +175,10 @@ public class Tempmute extends ListenerAdapter {
         return "Temporarily mutes the specified member for the specified amount of time and the specified reason. If no reason is specifed then the member is muted for \"No Reason Specified\"";
     }
 
+    public String getShortDescription() {
+        return "Temporarily mutes the specifed member";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator, Moderator";
     }

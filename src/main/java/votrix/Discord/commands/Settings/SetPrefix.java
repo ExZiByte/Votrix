@@ -48,6 +48,10 @@ public class SetPrefix extends ListenerAdapter {
         return "Sets the prefix for all subsequent commands\n\nCurrently Disabled";
     }
 
+    public String getShortDescription() {
+        return "Set the prefix for commands";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer";
     }

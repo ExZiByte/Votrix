@@ -9,6 +9,7 @@ import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.utils.Data;
 
 import java.awt.*;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class Help extends ListenerAdapter {
@@ -21,6 +22,25 @@ public class Help extends ListenerAdapter {
         if(args[0].equalsIgnoreCase(data.getPrefix() + "help")){
             event.getMessage().delete().queue();
             if(args.length < 2){
+                Ban ban = new Ban();
+                Clear clear = new Clear();
+                Kick kick = new Kick();
+                Mute mute = new Mute();
+                SetPrefix setprefix = new SetPrefix();
+                Softban softban = new Softban();
+                Suggest suggest = new Suggest();
+                Tempmute tempmute = new Tempmute();
+                Unmute unmute = new Unmute();
+                eb.setTitle("⚙ Help");
+                eb.setDescription("Commands for Votrix!\n\n**General Command**\n```\n" + data.getPrefix() + "suggest  --  " + suggest.getShortDescription() + "\n``` \n\n**Moderation Commands**\n```\n" + data.getPrefix() + "ban  --  " + ban.getShortDescription() + "\n" + data.getPrefix() + "clear  --  " + clear.getShortDescription() + "\n" + data.getPrefix() + "kick  --  " + kick.getShortDescription() + "\n" + data.getPrefix() + "mute  --  " + mute.getShortDescription() + "\n" + data.getPrefix() + "softban  --  " + softban.getShortDescription() + "\n" + data.getPrefix() + "tempmute  --  " + tempmute.getShortDescription() + "\n" + data.getPrefix() + "unmute  --  " + unmute.getShortDescription() + "\n```");
+                eb.setColor(new Color(data.getColor()));
+                eb.setTimestamp(Instant.now());
+                eb.setFooter("Votrix Commands Help Menu", data.getSelfAvatar(event));
+
+                event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                    message.delete().queueAfter(5, TimeUnit.MINUTES);
+                    eb.clear();
+                });
 
             } else if(args.length < 3){
                 if(args[1].equalsIgnoreCase("ban")){
@@ -31,7 +51,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Ban Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("clear")){
@@ -41,7 +61,7 @@ public class Help extends ListenerAdapter {
                     eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the clear command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");                    eb.setFooter("Votrix Clear Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("kick")){
@@ -52,7 +72,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Kick Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("mute")){
@@ -63,7 +83,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Mute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("setprefix")){
@@ -74,7 +94,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix SetPrefix Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("softban")){
@@ -85,7 +105,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Softban Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("suggest")){
@@ -96,7 +116,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Suggest Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("tempmute")){
@@ -107,7 +127,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Tempmute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 } else if(args[1].equalsIgnoreCase("unmute")){
@@ -118,7 +138,7 @@ public class Help extends ListenerAdapter {
                     eb.setFooter("Votrix Unmute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                         eb.clear();
                     });
                 }

@@ -112,6 +112,10 @@ public class Ban extends ListenerAdapter {
         return "Bans the specified member for the specified reason if no reason is specified then the member is banned for \"No Reason Specified\".";
     }
 
+    public String getShortDescription() {
+        return "Bans the specified member";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator";
     }

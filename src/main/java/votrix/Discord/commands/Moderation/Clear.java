@@ -115,6 +115,10 @@ public class Clear extends ListenerAdapter {
         return "Clears the specified amount of messages 2 - 100 messages at a time";
     }
 
+    public String getShortDescription() {
+        return "Clears messages from a channel";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator, Moderator";
     }

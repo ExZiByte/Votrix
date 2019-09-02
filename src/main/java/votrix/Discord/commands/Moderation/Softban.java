@@ -118,6 +118,10 @@ public class Softban extends ListenerAdapter {
         return "Bans the specified member to delete messages from the member then sends them a invite link to rejoin the server. If no reason is specified then the member is banned for \"No Reason Specified\"";
     }
 
+    public String getShortDescription() {
+        return "Deletes message from the specified member by temporarily banning them";
+    }
+
     public String getRequiredRoles() {
         return "Owner, Developer, Administrator";
     }

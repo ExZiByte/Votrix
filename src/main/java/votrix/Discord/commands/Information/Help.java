@@ -44,6 +44,17 @@ public class Help extends ListenerAdapter {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);
                         eb.clear();
                     });
+                } else if(args[1].equalsIgnoreCase("kick")){
+                    Kick command = new Kick();
+                    eb.setTitle(command.getName() + " Help");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setDescription(command.getDescription() +"\n\n **Required Roles:**\n" + command.getRequiredRoles()  + "\n\n **How to use the kick command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setFooter("Votrix Kick Command Help", data.getSelfAvatar(event));
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        eb.clear();
+                    });
                 } else if(args[1].equalsIgnoreCase("mute")){
                     Mute command = new Mute();
                     eb.setTitle(command.getName() + " Help");

@@ -1,15 +1,13 @@
 package votrix.Discord.commands.Fun;
 
-import com.google.code.chatterbotapi.ChatterBot;
-import com.google.code.chatterbotapi.ChatterBotFactory;
-import com.google.code.chatterbotapi.ChatterBotSession;
-import com.google.code.chatterbotapi.ChatterBotType;
+import com.michaelwflaherty.cleverbotapi.CleverBotQuery;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.utils.Data;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -23,15 +21,13 @@ public class CleverBot extends ListenerAdapter {
         if (args[0].equals(event.getGuild().getSelfMember().getAsMention())) {
             if (args.length > 1) {
                 String seedText = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
-                ChatterBotFactory factory = new ChatterBotFactory();
+                CleverBotQuery bot = new CleverBotQuery(System.getenv("CLEVERBOTAPIKEY"), seedText);
+                String response;
                 try {
-                    ChatterBot bot = factory.create(ChatterBotType.CLEVERBOT);
-                    ChatterBotSession session = bot.createSession();
-                    while (true) {
-                        event.getChannel().sendMessage(seedText).queue();
-                        seedText = session.think(seedText);
-                    }
-                } catch (Exception e) {
+                    bot.sendRequest();
+                    response = bot.getResponse();
+                    event.getChannel().sendMessage(response).queue();
+                } catch (IOException e) {
                     e.printStackTrace();
 
                     eb.setDescription("An error has occured with the chatbot API \n\n```\n" + e.toString().substring(0, 1950) + "\n```");

@@ -32,6 +32,13 @@
             <artifactId>mongodb-driver</artifactId>
             <version>3.4.3</version>
         </dependency>
+
+        <!-- CleverBot API for Java -->
+        <dependency>
+            <groupId>ca.pjer</groupId>
+            <artifactId>chatter-bot-api</artifactId>
+            <version>1.4.7</version>
+        </dependency>
     </dependencies>
 
     <build>

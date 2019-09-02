@@ -45,7 +45,7 @@ public class SetPrefix extends ListenerAdapter {
     }
 
     public String getDescription() {
-        return "Sets the prefix for all subsequent commands\n\nCurrently Disabled";
+        return "Sets the prefix for all subsequent commands";
     }
 
     public String getShortDescription() {

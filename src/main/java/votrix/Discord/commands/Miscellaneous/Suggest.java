@@ -80,7 +80,7 @@ public class Suggest extends ListenerAdapter {
     }
 
     public String getCommandSyntax() {
-        return "```\n" + Data.getPrefix() + "suggest {suggestion is as much detail as you can give}\n```";
+        return "```\n" + Data.getPrefix() + "suggest {suggestion in as much detail as you can give}\n```";
     }
 
 }

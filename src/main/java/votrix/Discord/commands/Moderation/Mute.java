@@ -412,6 +412,10 @@ public class Mute extends ListenerAdapter {
     public String getCommandSyntax() {
         return "```\n" + Data.getPrefix() + "mute {@member} [reason]\n```";
     }
+
+    public boolean isDisabled() {
+        return false;
+    }
 }
 
 

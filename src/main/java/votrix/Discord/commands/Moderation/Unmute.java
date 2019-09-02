@@ -90,4 +90,7 @@ public class Unmute extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "unmute {@member}\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
 }

@@ -127,4 +127,7 @@ public class Clear extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "clear {2 - 100}\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
 }

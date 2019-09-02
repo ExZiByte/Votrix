@@ -86,4 +86,8 @@ public class Suggest extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "suggest {suggestion in as much detail as you can give}\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
+
 }

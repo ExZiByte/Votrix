@@ -124,4 +124,8 @@ public class Ban extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "ban {@member} [reason]\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
+
 }

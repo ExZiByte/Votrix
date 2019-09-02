@@ -130,4 +130,7 @@ public class Softban extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "softban {@member} [reason]\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
 }

@@ -123,4 +123,8 @@ public class Kick extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "kick {@member} [reason]\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
+
 }

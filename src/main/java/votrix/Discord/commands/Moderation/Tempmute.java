@@ -187,4 +187,8 @@ public class Tempmute extends ListenerAdapter {
         return "```\n" + Data.getPrefix() + "tempmute {@member} {time}{time multiplier} [reason]\n```";
     }
 
+    public boolean isDisabled() {
+        return false;
+    }
+
 }

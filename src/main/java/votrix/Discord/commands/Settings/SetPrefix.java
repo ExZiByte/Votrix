@@ -59,4 +59,8 @@ public class SetPrefix extends ListenerAdapter {
     public String getCommandSyntax() {
         return "```\n" + Data.getPrefix() + "setprefix {new prefix}\n```";
     }
+
+    public boolean isDisabled() {
+        return true;
+    }
 }

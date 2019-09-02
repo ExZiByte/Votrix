@@ -47,7 +47,7 @@ public class Help extends ListenerAdapter {
                     Ban command = new Ban();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() +"\n\n **Required Roles:**\n" + command.getRequiredRoles()  + "\n\n **How to use the ban command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() +"\n\n **Required Roles:**\n" + command.getRequiredRoles()  + "\n\n **How to use the ban command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Ban Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -58,7 +58,7 @@ public class Help extends ListenerAdapter {
                     Clear command = new Clear();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the clear command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");                    eb.setFooter("Votrix Clear Command Help", data.getSelfAvatar(event));
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the clear command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");                    eb.setFooter("Votrix Clear Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(30, TimeUnit.SECONDS);
@@ -68,7 +68,7 @@ public class Help extends ListenerAdapter {
                     Kick command = new Kick();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() +"\n\n **Required Roles:**\n" + command.getRequiredRoles()  + "\n\n **How to use the kick command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() +"\n\n **Required Roles:**\n" + command.getRequiredRoles()  + "\n\n **How to use the kick command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Kick Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -79,7 +79,7 @@ public class Help extends ListenerAdapter {
                     Mute command = new Mute();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the mute command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the mute command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Mute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -90,7 +90,7 @@ public class Help extends ListenerAdapter {
                     SetPrefix command = new SetPrefix();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the setprefix command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the setprefix command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix SetPrefix Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -101,7 +101,7 @@ public class Help extends ListenerAdapter {
                     Softban command = new Softban();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Softban Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -112,7 +112,7 @@ public class Help extends ListenerAdapter {
                     Suggest command = new Suggest();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Suggest Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -123,7 +123,7 @@ public class Help extends ListenerAdapter {
                     Tempmute command = new Tempmute();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the tempmute command:**\n" + command.getCommandSyntax() + "\n**Time Multipliers**\n```\nS | SECONDS\nM | MINUTES\nH | HOURS\nD | DAYS\n```\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the tempmute command:**\n" + command.getCommandSyntax() + "\n**Time Multipliers**\n```\nS | SECONDS\nM | MINUTES\nH | HOURS\nD | DAYS\n```\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Tempmute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
@@ -134,7 +134,7 @@ public class Help extends ListenerAdapter {
                     Unmute command = new Unmute();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the unmute command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the unmute command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Unmute Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {

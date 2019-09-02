@@ -3,6 +3,7 @@ package votrix.Discord.commands.Information;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import votrix.Discord.commands.Miscellaneous.Suggest;
 import votrix.Discord.commands.Moderation.*;
 import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.utils.Data;
@@ -16,8 +17,6 @@ public class Help extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
-
-
 
         if(args[0].equalsIgnoreCase(data.getPrefix() + "help")){
             event.getMessage().delete().queue();
@@ -73,6 +72,17 @@ public class Help extends ListenerAdapter {
                     eb.setColor(new Color(data.getColor()));
                     eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Softban Command Help", data.getSelfAvatar(event));
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        eb.clear();
+                    });
+                } else if(args[1].equalsIgnoreCase("suggest")){
+                    Suggest command = new Suggest();
+                    eb.setTitle(command.getName() + " Help");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the softban command:**\n" + command.getCommandSyntax() + "\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setFooter("Votrix Suggest Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);

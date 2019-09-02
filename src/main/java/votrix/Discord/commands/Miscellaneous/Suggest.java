@@ -67,4 +67,20 @@ public class Suggest extends ListenerAdapter {
         }
     }
 
+    public String getName() {
+        return "Suggest";
+    }
+
+    public String getDescription() {
+        return "Make a suggestion for a feature to be added to the server and or bot.";
+    }
+
+    public String getRequiredRoles() {
+        return "Everyone";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n" + Data.getPrefix() + "suggest {suggestion is as much detail as you can give}\n```";
+    }
+
 }

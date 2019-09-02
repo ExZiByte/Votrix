@@ -38,7 +38,7 @@ public class Help extends ListenerAdapter {
                 eb.setFooter("Votrix Commands Help Menu", data.getSelfAvatar(event));
 
                 event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                    message.delete().queueAfter(5, TimeUnit.MINUTES);
+                    message.delete().queueAfter(2, TimeUnit.MINUTES);
                     eb.clear();
                 });
 

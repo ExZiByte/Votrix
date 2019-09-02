@@ -30,8 +30,6 @@ public class CleverBot extends ListenerAdapter {
                     while (true) {
                         event.getChannel().sendMessage(seedText).queue();
                         seedText = session.think(seedText);
-                        event.getChannel().sendMessage(seedText).queue();
-                        seedText = session.think(seedText);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

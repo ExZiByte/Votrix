@@ -19,11 +19,12 @@ public class CleverBot extends ListenerAdapter {
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         if (args[0].equals(event.getGuild().getSelfMember().getAsMention())) {
+            CleverBotQuery bot = new CleverBotQuery(System.getenv("CLEVERBOTAPIKEY"), "hi");
             if (args.length > 1) {
                 String seedText = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
-                CleverBotQuery bot = new CleverBotQuery(System.getenv("CLEVERBOTAPIKEY"), seedText);
                 String response;
                 try {
+                    bot.setPhrase(seedText);
                     bot.sendRequest();
                     response = bot.getResponse();
                     event.getChannel().sendMessage(response).queue();

@@ -60,4 +60,29 @@ public class CleverBot extends ListenerAdapter {
             }
         }
     }
+
+    public String getName() {
+        return "Votrix CleverBot";
+    }
+
+    public String getDescription() {
+        return "Talk to a chatbot from the clever bot API";
+    }
+
+    public String getShortDescription() {
+        return "Talk to a chatbot";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n@Votrix {starting message}\n```";
+    }
+
+    public boolean isDisabled() {
+        return false;
+    }
+
+    public String getRequiredRoles() {
+        return "Everyone";
+    }
+
 }

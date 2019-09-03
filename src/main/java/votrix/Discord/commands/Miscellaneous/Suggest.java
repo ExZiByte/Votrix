@@ -20,7 +20,7 @@ public class Suggest extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
-        String[] images = {"https://www.dropbox.com/s/9sg97ydu1z3ifch/huh.jpg?dl=0", "https://www.dropbox.com/s/60jl1h0y0spgsqf/jackie_chan_huh.jpg?dl=0", "https://www.dropbox.com/s/8xed8xaoaynme9r/wat.png?dl=0", "https://www.dropbox.com/s/cbxafxmu2mc55x4/wat_magik.png?dl=0"};
+        String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
         if(args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")){
             event.getMessage().delete().queue();
             if(args.length < 2){

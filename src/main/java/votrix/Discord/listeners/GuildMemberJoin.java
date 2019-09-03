@@ -49,7 +49,7 @@ public class GuildMemberJoin extends ListenerAdapter {
         if(!event.getMember().getUser().isBot()) {
             Random random = new Random();
             int message = random.nextInt(messages.length);
-            eb.setDescription(messages[message].replaceAll("[member]", event.getMember().getAsMention()));
+            eb.setDescription(messages[message].replace("[member]", event.getMember().getAsMention()));
             eb.setColor(new Color(data.getColor()));
             eb.setTimestamp(Instant.now());
 

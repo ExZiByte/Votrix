@@ -20,7 +20,7 @@ public class Suggest extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
-        String[] images = {"https://github.com/ExZiByte/Votrix/blob/master/huh.jpg", "https://github.com/ExZiByte/Votrix/blob/master/jackie_chan_huh.jpg", "https://github.com/ExZiByte/Votrix/blob/master/wat.png", "https://github.com/ExZiByte/Votrix/blob/master/wat_magik.png"};
+        String[] images = {"https://www.dropbox.com/s/9sg97ydu1z3ifch/huh.jpg?dl=0", "https://www.dropbox.com/s/60jl1h0y0spgsqf/jackie_chan_huh.jpg?dl=0", "https://www.dropbox.com/s/8xed8xaoaynme9r/wat.png?dl=0", "https://www.dropbox.com/s/cbxafxmu2mc55x4/wat_magik.png?dl=0"};
         if(args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")){
             event.getMessage().delete().queue();
             if(args.length < 2){
@@ -47,7 +47,6 @@ public class Suggest extends ListenerAdapter {
                         .setDescription(sug)
                     );
                     webhook.execute();
-
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");
                     eb.setColor(new Color(data.getColor()));

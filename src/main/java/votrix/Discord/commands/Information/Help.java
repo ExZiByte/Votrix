@@ -22,6 +22,7 @@ public class Help extends ListenerAdapter {
         if(args[0].equalsIgnoreCase(data.getPrefix() + "help")){
             event.getMessage().delete().queue();
             if(args.length < 2){
+
                 Ban ban = new Ban();
                 Clear clear = new Clear();
                 Kick kick = new Kick();
@@ -31,8 +32,9 @@ public class Help extends ListenerAdapter {
                 Suggest suggest = new Suggest();
                 Tempmute tempmute = new Tempmute();
                 Unmute unmute = new Unmute();
+
                 eb.setTitle("⚙ Help");
-                eb.setDescription("Commands for Votrix!\n\n**General Commands**\n```\n" + data.getPrefix() + "suggest   --  " + suggest.getShortDescription() + "\n```\n**Moderation Commands**\n```\n" + data.getPrefix() + "ban       --  " + ban.getShortDescription() + "\n" + data.getPrefix() + "clear     --  " + clear.getShortDescription() + "\n" + data.getPrefix() + "kick      --  " + kick.getShortDescription() + "\n" + data.getPrefix() + "mute      --  " + mute.getShortDescription() + "\n" + data.getPrefix() + "softban   --  " + softban.getShortDescription() + "\n" + data.getPrefix() + "tempmute  --  " + tempmute.getShortDescription() + "\n" + data.getPrefix() + "unmute    --  " + unmute.getShortDescription() + "\n```\n**Setting Commands**\n```\n" + data.getPrefix() + "setprefix --  " + setprefix.getShortDescription() + "\n```\n\n**For command syntax do**\n```\n" + data.getPrefix() + "help {command}\n```");
+                eb.setDescription("Commands for Votrix!\n\n**General Commands**\n```\n" + data.getPrefix() + "suggest   --  " + suggest.getShortDescription() + "\n```\n**Fun Commands**\n```\n@Votrix@\n**Moderation Commands**\n```\n" + data.getPrefix() + "ban       --  " + ban.getShortDescription() + "\n" + data.getPrefix() + "clear     --  " + clear.getShortDescription() + "\n" + data.getPrefix() + "kick      --  " + kick.getShortDescription() + "\n" + data.getPrefix() + "mute      --  " + mute.getShortDescription() + "\n" + data.getPrefix() + "softban   --  " + softban.getShortDescription() + "\n" + data.getPrefix() + "tempmute  --  " + tempmute.getShortDescription() + "\n" + data.getPrefix() + "unmute    --  " + unmute.getShortDescription() + "\n```\n**Setting Commands**\n```\n" + data.getPrefix() + "setprefix --  " + setprefix.getShortDescription() + "\n```\n\n**For command syntax do**\n```\n" + data.getPrefix() + "help {command}\n```");
                 eb.setColor(new Color(data.getColor()));
                 eb.setTimestamp(Instant.now());
                 eb.setFooter("Votrix Commands Help Menu", data.getSelfAvatar(event));

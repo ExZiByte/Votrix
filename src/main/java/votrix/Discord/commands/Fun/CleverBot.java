@@ -20,6 +20,25 @@ public class CleverBot extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         if (args[0].equals(event.getGuild().getSelfMember().getAsMention())) {
             CleverBotQuery bot = new CleverBotQuery(System.getenv("CLEVERBOTAPIKEY"), "hi");
+            if (args.length < 2) {
+               String seedText = "Hi, how are you?";
+               String response;
+               try{
+                   bot.setPhrase(seedText);
+                   bot.sendRequest();
+                   response = bot.getResponse();
+                   event.getChannel().sendMessage(response).queue();
+               } catch (IOException e){
+                   e.printStackTrace();
+
+                   eb.setDescription("An error has occured with the chatbot API \n\n```\n" + e.toString().substring(0, 1950) + "\n```");
+                   eb.setColor(new Color(data.getColor()));
+                   eb.setTimestamp(Instant.now());
+                   eb.setFooter("Votrix Cleverbot API Error", data.getSelfAvatar(event));
+
+                   data.getLogChannel(event).sendMessage(eb.build()).queue();
+               }
+            }
             if (args.length > 1) {
                 String seedText = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
                 String response;

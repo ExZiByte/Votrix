@@ -15,9 +15,17 @@ import votrix.Discord.commands.Moderation.*;
 import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.listeners.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Votrix {
 
     public static void main(String[] args) throws LoginException, RateLimitedException, InterruptedException{
+
+        //Disable MongoDB Logs
+        Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+        mongoLogger.setLevel(Level.OFF);
+
         final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("VOTRIXTOKEN"));
 
         votrix.setGame(Game.watching("the loading bar!"));

@@ -54,7 +54,7 @@ public class Suggest extends ListenerAdapter {
                     );
                     webhook.execute();
 
-                    addSuggestion(event, sug);
+                    //addSuggestion(event, sug);
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");
                     eb.setColor(new Color(data.getColor()));

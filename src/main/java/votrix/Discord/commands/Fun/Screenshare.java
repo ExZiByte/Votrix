@@ -48,4 +48,28 @@ public class Screenshare extends ListenerAdapter {
             }
         }
     }
+
+    public String getName(){
+        return "Screenshare";
+    }
+
+    public String getDescription() {
+        return "When used with the user in a voice channel this command will create a screenshare link for the voice channel the user is in";
+    }
+
+    public String getShortDescription() {
+        return "Creates a screenshare link for a voice channel";
+    }
+
+    public String getRequiredRoles() {
+        return "Everyone";
+    }
+
+    public String getCommandSyntax() {
+        return "```\n" + Data.getPrefix() + "screenshare\n```";
+    }
+
+    public boolean isDisabled(){
+        return false;
+    }
 }

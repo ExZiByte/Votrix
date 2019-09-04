@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import votrix.Discord.commands.Fun.CleverBot;
+import votrix.Discord.commands.Fun.Screenshare;
 import votrix.Discord.commands.Miscellaneous.Suggest;
 import votrix.Discord.commands.Moderation.*;
 import votrix.Discord.commands.Settings.SetPrefix;
@@ -29,6 +30,7 @@ public class Help extends ListenerAdapter {
                 CleverBot cleverbot = new CleverBot();
                 Kick kick = new Kick();
                 Mute mute = new Mute();
+                Screenshare screenshare = new Screenshare();
                 SetPrefix setprefix = new SetPrefix();
                 Softban softban = new Softban();
                 Suggest suggest = new Suggest();
@@ -36,7 +38,7 @@ public class Help extends ListenerAdapter {
                 Unmute unmute = new Unmute();
 
                 eb.setTitle("⚙ Help");
-                eb.setDescription("Commands for Votrix!\n\n**General Commands**\n```\n" + data.getPrefix() + "suggest     --  " + suggest.getShortDescription() + "\n```\n**Fun Commands**\n```\n@Votrix msg  -- " + cleverbot.getShortDescription() + "\n```\n**Moderation Commands**\n```\n" + data.getPrefix() + "ban         --  " + ban.getShortDescription() + "\n" + data.getPrefix() + "clear       --  " + clear.getShortDescription() + "\n" + data.getPrefix() + "kick        --  " + kick.getShortDescription() + "\n" + data.getPrefix() + "mute        --  " + mute.getShortDescription() + "\n" + data.getPrefix() + "softban     --  " + softban.getShortDescription() + "\n" + data.getPrefix() + "tempmute    --  " + tempmute.getShortDescription() + "\n" + data.getPrefix() + "unmute      --  " + unmute.getShortDescription() + "\n```\n**Setting Commands**\n```\n" + data.getPrefix() + "setprefix   --  " + setprefix.getShortDescription() + "\n```\n\n**For command syntax do**\n```\n" + data.getPrefix() + "help {command}\n```");
+                eb.setDescription("Commands for Votrix!\n\n**General Commands**\n```\n" + data.getPrefix() + "suggest     --  " + suggest.getShortDescription() + "\n```\n**Fun Commands**\n```\n@Votrix msg  -- " + cleverbot.getShortDescription() + "\n " + data.getPrefix() + "screenshare -- " + screenshare.getShortDescription() + "\n```\n**Moderation Commands**\n```\n" + data.getPrefix() + "ban         --  " + ban.getShortDescription() + "\n" + data.getPrefix() + "clear       --  " + clear.getShortDescription() + "\n" + data.getPrefix() + "kick        --  " + kick.getShortDescription() + "\n" + data.getPrefix() + "mute        --  " + mute.getShortDescription() + "\n" + data.getPrefix() + "softban     --  " + softban.getShortDescription() + "\n" + data.getPrefix() + "tempmute    --  " + tempmute.getShortDescription() + "\n" + data.getPrefix() + "unmute      --  " + unmute.getShortDescription() + "\n```\n**Setting Commands**\n```\n" + data.getPrefix() + "setprefix   --  " + setprefix.getShortDescription() + "\n```\n\n**For command syntax do**\n```\n" + data.getPrefix() + "help {command}\n```");
                 eb.setColor(new Color(data.getColor()));
                 eb.setTimestamp(Instant.now());
                 eb.setFooter("Votrix Commands Help Menu", data.getSelfAvatar(event));
@@ -96,6 +98,17 @@ public class Help extends ListenerAdapter {
                     eb.setColor(new Color(data.getColor()));
                     eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the mute command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
                     eb.setFooter("Votrix Mute Command Help", data.getSelfAvatar(event));
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
+                        eb.clear();
+                    });
+                } else if(args[1].equalsIgnoreCase("screenshare")){
+                    Screenshare command = new Screenshare();
+                    eb.setTitle(command.getName() + " Help");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the setprefix command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setFooter("Votrix SetPrefix Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(30, TimeUnit.SECONDS);

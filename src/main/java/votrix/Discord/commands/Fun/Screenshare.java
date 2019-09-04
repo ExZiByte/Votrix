@@ -29,7 +29,7 @@ public class Screenshare extends ListenerAdapter {
                 });
             } else {
                 // Screen share link https://www.discordapp.com/channels/578937882023034901/
-                eb.setDescription("You've created a screenshare link for " + event.getMember().getVoiceState().getChannel().getName() + "\n\n[Screenshare Link](https://www.discordapp.com/channels/578937882023034901/" + event.getMember().getVoiceState().getChannel().getId() + " \"Click to join the screenshare for the voice channel " + event.getMember().getVoiceState().getChannel().getName() +"\")");
+                eb.setDescription(event.getMember().getAsMention() + " created a screenshare link for " + event.getMember().getVoiceState().getChannel().getName() + "\n\n[Screenshare Link](https://www.discordapp.com/channels/578937882023034901/" + event.getMember().getVoiceState().getChannel().getId() + " \"Click to join the screenshare for the voice channel " + event.getMember().getVoiceState().getChannel().getName() +"\")");
                 eb.setColor(new Color(data.getColor()));
                 eb.setTimestamp(Instant.now());
                 eb.setFooter("Votrix Screenshare", data.getSelfAvatar(event));

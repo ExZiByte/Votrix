@@ -7,6 +7,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.bson.Document;
 import votrix.Discord.Votrix;
+import votrix.Discord.listeners.SuggestionReactAdd;
 import votrix.Discord.utils.Data;
 import votrix.Discord.utils.Database;
 import votrix.Discord.utils.Webhooks;
@@ -53,7 +54,7 @@ public class Suggest extends ListenerAdapter {
                         .setDescription(sug)
                     );
                     webhook.execute();
-
+                    System.out.print(SuggestionReactAdd.messageID + "\n");
                     //addSuggestion(event, sug);
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");

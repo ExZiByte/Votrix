@@ -10,7 +10,7 @@ import votrix.Discord.utils.Database;
 public class SuggestionReactAdd extends ListenerAdapter {
 
 
-    String messageID = "";
+    public static String messageID = "";
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
         if (event.getChannel().getId().equals("598949933650804736")) {
@@ -19,6 +19,7 @@ public class SuggestionReactAdd extends ListenerAdapter {
                 event.getMessage().addReaction("❌").queue();
             });
             messageID = event.getMessageId();
+            System.out.print(messageID + "\n");
         }
     }
 }

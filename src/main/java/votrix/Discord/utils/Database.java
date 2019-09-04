@@ -16,7 +16,7 @@ public class Database{
     public static void connect() {
         MongoCredential credentials = MongoCredential.createCredential("Votrix", "admin", System.getenv("VOTRIXSQLPASSWORD").toCharArray());
         client = new MongoClient(new ServerAddress("localhost", 27018), Arrays.asList(credentials));
-        db = client.getDatabase("Votrix");
+        db = client.getDatabase("guild");
     }
 
     public static MongoCollection<Document> getCollection(String collection) {

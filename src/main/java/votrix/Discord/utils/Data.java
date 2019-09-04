@@ -20,7 +20,7 @@ public class Data {
     public static String getPrefix() {
         String prefix;
         db.connect();
-        MongoCollection<Document> guild = db.getCollection("guild.Votrix");
+        MongoCollection<Document> guild = db.getCollection("Votrix");
         prefix = guild.find().first().getString("prefix");
         db.close();
         return prefix;
@@ -28,7 +28,7 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        db.getCollection("guild").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
+        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
         db.close();
     }
 

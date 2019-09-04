@@ -58,7 +58,7 @@ public class Screenshare extends ListenerAdapter {
     }
 
     public String getShortDescription() {
-        return "Creates a screenshare link for a voice channel";
+        return "Creates a screenshare link for a channel";
     }
 
     public String getRequiredRoles() {

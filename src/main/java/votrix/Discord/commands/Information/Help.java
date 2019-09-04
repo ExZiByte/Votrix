@@ -107,8 +107,8 @@ public class Help extends ListenerAdapter {
                     Screenshare command = new Screenshare();
                     eb.setTitle(command.getName() + " Help");
                     eb.setColor(new Color(data.getColor()));
-                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the setprefix command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
-                    eb.setFooter("Votrix SetPrefix Command Help", data.getSelfAvatar(event));
+                    eb.setDescription(command.getDescription() + "\n\n **Required Roles:**\n" + command.getRequiredRoles() + "\n\n **How to use the screenshare command:**\n" + command.getCommandSyntax() + "\n**Is Disabled?** \n```\n" + command.isDisabled() + "\n```\n```\n{} | Required\n[] | Optional\n```");
+                    eb.setFooter("Votrix Screenshare Command Help", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(30, TimeUnit.SECONDS);

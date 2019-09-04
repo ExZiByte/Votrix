@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -54,8 +56,16 @@ public class Suggest extends ListenerAdapter {
                         .setDescription(sug)
                     );
                     webhook.execute();
-                    System.out.print(SuggestionReactAdd.messageID + "\n");
-                    //addSuggestion(event, sug);
+                    new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                System.out.print(SuggestionReactAdd.messageID);
+//                                addSuggestion(event, sug, SuggestionReactAdd.messageID);
+                            }
+                        },
+                        250
+                    );
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");
                     eb.setColor(new Color(data.getColor()));

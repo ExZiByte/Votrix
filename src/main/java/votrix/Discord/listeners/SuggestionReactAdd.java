@@ -10,12 +10,15 @@ import votrix.Discord.utils.Database;
 public class SuggestionReactAdd extends ListenerAdapter {
 
 
+    String messageID = "";
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
         if (event.getChannel().getId().equals("598949933650804736")) {
+            messageID = "";
             event.getMessage().addReaction("✅").queue((message) -> {
                 event.getMessage().addReaction("❌").queue();
             });
+            messageID = event.getMessageId();
         }
     }
 }

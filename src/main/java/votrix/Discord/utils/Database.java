@@ -15,7 +15,7 @@ public class Database{
 
     public static void connect() {
         MongoCredential credentials = MongoCredential.createCredential("Votrix", "admin", System.getenv("VOTRIXSQLPASSWORD").toCharArray());
-        client = new MongoClient(new ServerAddress("votrix.tk", 27017), Arrays.asList(credentials));
+        client = new MongoClient(new ServerAddress("localhost", 27018), Arrays.asList(credentials));
         db = client.getDatabase("Votrix");
     }
 

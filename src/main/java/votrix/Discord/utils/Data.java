@@ -1,8 +1,6 @@
 package votrix.Discord.utils;
 
-import com.mongodb.Mongo;
 import com.mongodb.client.MongoCollection;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import org.bson.Document;
@@ -22,17 +20,17 @@ public class Data {
     public static String getPrefix() {
         String prefix;
 
-//        db.connect();
-//        MongoCollection<Document> guild = db.getCollection("guild");
-//        prefix = guild.find().first().getString("prefix");
-//        db.close();
-        return "~";
+        db.connect();
+        MongoCollection<Document> guild = db.getCollection("guild");
+        prefix = guild.find().first().getString("prefix");
+        db.close();
+        return prefix;
     }
 
     public static void setPrefix(String prefix) {
-//        db.connect();
-//        db.getCollection("guild").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
-//        db.close();
+        db.connect();
+        db.getCollection("guild").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
+        db.close();
     }
 
     public static int getColor() {

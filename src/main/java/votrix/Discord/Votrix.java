@@ -43,7 +43,7 @@ public class Votrix {
         votrix.addEventListener(new Unmute());
 
         //Settings
-        //votrix.addEventListener(new SetPrefix());
+        votrix.addEventListener(new SetPrefix());
 
         //Misc Event Listeners
         votrix.addEventListener(new Ready());

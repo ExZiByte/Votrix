@@ -1,9 +1,14 @@
 package votrix.Discord.commands.Miscellaneous;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.bson.Document;
+import votrix.Discord.Votrix;
 import votrix.Discord.utils.Data;
+import votrix.Discord.utils.Database;
 import votrix.Discord.utils.Webhooks;
 
 import java.awt.*;
@@ -15,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Suggest extends ListenerAdapter {
-
+    Integer id = 0;
     public void onGuildMessageReceived(GuildMessageReceivedEvent event){
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
@@ -36,17 +41,20 @@ public class Suggest extends ListenerAdapter {
                     eb.clear();
                 });
             } else if(args.length > 1){
+                int id = 0;
                 try{
                     String sug = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
                     Webhooks webhook = new Webhooks(System.getenv("VOTRIXSUGGESTIONWEBHOOK"));
                     webhook.setAvatarUrl(event.getMember().getUser().getEffectiveAvatarUrl());
                     webhook.setUsername(event.getMember().getUser().getName());
                     webhook.addEmbed(new Webhooks.EmbedObject()
-                        .setTitle("New Suggestion")
+                        .setTitle("New Suggestion | " + id)
                         .setColor(new Color(data.getColor()))
                         .setDescription(sug)
                     );
                     webhook.execute();
+
+                    addSuggestion(event, sug);
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");
                     eb.setColor(new Color(data.getColor()));
@@ -63,6 +71,14 @@ public class Suggest extends ListenerAdapter {
                 }
             }
         }
+    }
+
+    public void addSuggestion(GuildMessageReceivedEvent event, String suggestion, String messageID) {
+        Database db = new Database();
+        id =+ 1;
+        MongoCollection suggestions = db.getCollection("Suggestions");
+        Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion));
+        suggestions.insertOne(doc);
     }
 
     public String getName() {

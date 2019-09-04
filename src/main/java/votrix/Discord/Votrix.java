@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import votrix.Discord.commands.Fun.CleverBot;
+import votrix.Discord.commands.Fun.Screenshare;
 import votrix.Discord.commands.Information.Help;
 import votrix.Discord.commands.Miscellaneous.Suggest;
 import votrix.Discord.commands.Moderation.*;
@@ -26,6 +27,7 @@ public class Votrix {
 
         //Fun
         votrix.addEventListener(new CleverBot());
+        votrix.addEventListener(new Screenshare());
 
         //Miscellaneous
         votrix.addEventListener(new Suggest());

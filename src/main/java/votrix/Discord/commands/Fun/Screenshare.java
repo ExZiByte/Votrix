@@ -17,7 +17,7 @@ public class Screenshare extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
         if(args[0].equalsIgnoreCase(data.getPrefix() + "screenshare") || args[0].equalsIgnoreCase(data.getPrefix() + "ss")){
-            if(event.getMember().getVoiceState() == null){
+            if(!event.getMember().getVoiceState().inVoiceChannel()){
                 eb.setDescription(event.getMember().getAsMention() + " you'll need to join a voice channel before using this command");
                 eb.setColor(new Color(data.getColor()));
                 eb.setTimestamp(Instant.now());

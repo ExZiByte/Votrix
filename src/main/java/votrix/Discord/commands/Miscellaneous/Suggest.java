@@ -60,8 +60,7 @@ public class Suggest extends ListenerAdapter {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                System.out.print(SuggestionReactAdd.messageID);
-//                                addSuggestion(event, sug, SuggestionReactAdd.messageID);
+                                addSuggestion(event, eb, sug, SuggestionReactAdd.messageID);
                             }
                         },
                         250
@@ -71,11 +70,6 @@ public class Suggest extends ListenerAdapter {
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Suggestions", data.getSelfAvatar(event));
-
-                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(20, TimeUnit.SECONDS);
-                        eb.clear();
-                    });
                 } catch(IOException ex){
                     event.getChannel().sendMessage("Well shit there was an error with this command tell " + event.getGuild().getMemberById("79693184417931264").getAsMention() + " he retarded").queue();
                     ex.printStackTrace();
@@ -84,12 +78,17 @@ public class Suggest extends ListenerAdapter {
         }
     }
 
-    public void addSuggestion(GuildMessageReceivedEvent event, String suggestion, String messageID) {
+    public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
         Database db = new Database();
         id =+ 1;
         MongoCollection suggestions = db.getCollection("Suggestions");
         Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion));
         suggestions.insertOne(doc);
+
+        event.getChannel().sendMessage(eb.build()).queue((message) -> {
+            message.delete().queueAfter(20, TimeUnit.SECONDS);
+            eb.clear();
+        });
     }
 
     public String getName() {

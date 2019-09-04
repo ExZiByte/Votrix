@@ -16,6 +16,7 @@ import votrix.Discord.commands.Settings.SetPrefix;
 import votrix.Discord.listeners.*;
 
 public class Votrix {
+
     public static void main(String[] args) throws LoginException, RateLimitedException, InterruptedException{
         final JDABuilder votrix = new JDABuilder(AccountType.BOT).setToken(System.getenv("VOTRIXTOKEN"));
 

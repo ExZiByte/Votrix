@@ -28,7 +28,7 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
+        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$mod:{prefix", prefix));
         db.close();
     }
 

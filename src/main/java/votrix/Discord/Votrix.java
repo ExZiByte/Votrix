@@ -42,6 +42,7 @@ public class Votrix {
         votrix.addEventListener(new Suggest());
 
         //Moderation
+        votrix.addEventListener(new RoleAdd());
         votrix.addEventListener(new Ban());
         votrix.addEventListener(new Clear());
         votrix.addEventListener(new Kick());

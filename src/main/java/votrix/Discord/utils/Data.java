@@ -1,5 +1,6 @@
 package votrix.Discord.utils;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -28,7 +29,7 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$mod:{prefix", prefix));
+        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
         db.close();
     }
 

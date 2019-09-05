@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 
 public class RoleCreate {
     static Role muteRole;
@@ -24,6 +25,10 @@ public class RoleCreate {
                 channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
             }
         }
+
+        event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
+            message.delete().queueAfter(15, TimeUnit.SECONDS);
+        });
 
     }
 

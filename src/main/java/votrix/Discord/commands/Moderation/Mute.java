@@ -18,6 +18,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import votrix.Discord.utils.Data;
 import votrix.Discord.utils.RoleCheck;
+import votrix.Discord.utils.RoleCreate;
 
 public class Mute extends ListenerAdapter {
 
@@ -25,11 +26,10 @@ public class Mute extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         RoleCheck rc = new RoleCheck();
+        RoleCreate create = new RoleCreate();
         EmbedBuilder eb = new EmbedBuilder();
-
         EmbedBuilder muted = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
-        Role muteRole;
 
         if (args[0].equalsIgnoreCase(data.getPrefix() + "mute")) {
                 event.getMessage().delete().queue();
@@ -50,22 +50,7 @@ public class Mute extends ListenerAdapter {
 
                     if (roles.size() < 1) {
 
-                        muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
-
-                        muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
-                                        Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
-                                        Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,
-                                        Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
-
-                        for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(!    channel.getParent().getId().equals("579392397189054465")){
-                                channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
-                            }
-                        }
-
-                        event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
-                                    message.delete().queueAfter(15, TimeUnit.SECONDS);
-                                });
+                        create.createMutedRole(event);
 
                         Member mentioned = event.getMessage().getMentionedMembers().get(0);
                         // Build Information Embed to be sent to muted user
@@ -88,7 +73,7 @@ public class Mute extends ListenerAdapter {
                         success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                         success.setTimestamp(Instant.now());
 
-                        event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
+                        event.getGuild().getController().addSingleRoleToMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
                         mentioned.getUser().openPrivateChannel().queue((channel) -> {
                             channel.sendMessage(muted.build()).queue();
                             muted.clear();
@@ -103,7 +88,7 @@ public class Mute extends ListenerAdapter {
                         });
                     } else {
 
-                        muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
+                        Role muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
                             if(!channel.getParent().getId().equals("579392397189054465")){
@@ -167,22 +152,7 @@ public class Mute extends ListenerAdapter {
 
                         if (roles.size() < 1) {
 
-                            muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
-
-                            muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
-                                Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
-                                Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,
-                                Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
-
-                            for (Channel channel : event.getGuild().getTextChannels()) {
-                                if(!channel.getParent().getId().equals("579392397189054465")){
-                                    channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
-                                }
-                            }
-
-                            event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
-                                message.delete().queueAfter(15, TimeUnit.SECONDS);
-                            });
+                            create.createMutedRole(event);
 
                             Member mentioned = event.getMessage().getMentionedMembers().get(0);
                             // Build Information Embed to be sent to muted user
@@ -200,7 +170,7 @@ public class Mute extends ListenerAdapter {
                                 data.getSelfAvatar(event));
                             eb.setTimestamp(Instant.now());
 
-                            event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
+                            event.getGuild().getController().addSingleRoleToMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
                             mentioned.getUser().openPrivateChannel().queue((channel) -> {
                                 channel.sendMessage(muted.build()).queue();
                                 muted.clear();
@@ -211,7 +181,7 @@ public class Mute extends ListenerAdapter {
                             });
                         } else {
 
-                            muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
+                            Role muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
 
                             for (Channel channel : event.getGuild().getTextChannels()) {
                                 if(!channel.getParent().getId().equals("579392397189054465")){
@@ -268,22 +238,7 @@ public class Mute extends ListenerAdapter {
 
                     if (roles.size() < 1) {
 
-                        muteRole = event.getGuild().getController().createRole().setName("Muted").setColor(0xffffff).setMentionable(false).complete();
-
-                        muteRole.getManager().revokePermissions(Permission.MESSAGE_TTS, Permission.MESSAGE_WRITE,
-                            Permission.VOICE_DEAF_OTHERS, Permission.VOICE_MOVE_OTHERS,
-                            Permission.VOICE_MUTE_OTHERS, Permission.VOICE_SPEAK, Permission.VOICE_USE_VAD,
-                            Permission.NICKNAME_CHANGE, Permission.MESSAGE_ADD_REACTION).queue();
-
-                        for (Channel channel : event.getGuild().getTextChannels()) {
-                            if(!channel.getParent().getId().equals("579392397189054465")){
-                                channel.getManager().putPermissionOverride(muteRole, EnumSet.of(Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ), EnumSet.of(Permission.MESSAGE_WRITE)).queue();
-                            }
-                        }
-
-                        event.getChannel().sendMessage("Your server didn't have a Muted role so I went ahead and created one for you and set the correct required permissions to each text channel").queue((message) -> {
-                            message.delete().queueAfter(15, TimeUnit.SECONDS);
-                        });
+                        create.createMutedRole(event);
 
                         Member mentioned = event.getMessage().getMentionedMembers().get(0);
                         // Build Information Embed to be sent to muted user
@@ -306,7 +261,7 @@ public class Mute extends ListenerAdapter {
                         success.setFooter(event.getJDA().getSelfUser().getName() + " Mute", data.getSelfAvatar(event));
                         success.setTimestamp(Instant.now());
 
-                        event.getGuild().getController().addSingleRoleToMember(mentioned, muteRole).queue();
+                        event.getGuild().getController().addSingleRoleToMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queue();
                         mentioned.getUser().openPrivateChannel().queue((channel) -> {
                             channel.sendMessage(muted.build()).queue();
                             muted.clear();
@@ -321,7 +276,7 @@ public class Mute extends ListenerAdapter {
                         });
                     } else {
 
-                        muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
+                        Role muteRole = event.getGuild().getRolesByName("Muted", true).get(0);
 
                         for (Channel channel : event.getGuild().getTextChannels()) {
                             if(!channel.getParent().getId().equals("579392397189054465")){

@@ -30,7 +30,7 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        db.getCollection("Votrix").findOneAndUpdate(eq("prefix", getPrefix()), eq("$set", prefix));
+        db.getCollection("Votrix").find(eq("prefix", getPrefix())).first().put("prefix", prefix);
         db.close();
     }
 

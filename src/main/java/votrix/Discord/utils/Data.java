@@ -30,7 +30,11 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        db.getCollection("Votrix").find(eq("prefix", getPrefix())).first().replace("prefix", getPrefix(), prefix);
+        try {
+            db.getCollection("Votrix").find(eq("prefix", getPrefix())).first().replace("prefix", getPrefix(), prefix);
+        } catch(NullPointerException e){
+            System.out.println("MongoDB NEEDS TO COMMIT TOASTER BATH 52000000 TIMES OVER");
+        }
         db.close();
     }
 

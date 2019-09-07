@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import org.bson.BSON;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.Random;
 
@@ -30,11 +31,12 @@ public class Data {
 
     public static void setPrefix(String prefix) {
         db.connect();
-        try {
-            db.getCollection("Votrix").find(eq("prefix", getPrefix())).first().replace("prefix", getPrefix(), prefix);
-        } catch(NullPointerException e){
-            System.out.println("MongoDB NEEDS TO COMMIT TOASTER BATH 52000000 TIMES OVER");
-        }
+
+        Bson filter = new Document("prefix", getPrefix());
+        Bson newPrefix = new Document("prefix", prefix);
+        Bson updatePrefix = new Document("$set", newPrefix);
+        db.getCollection("Votrix").updateOne(filter, updatePrefix);
+
         db.close();
     }
 

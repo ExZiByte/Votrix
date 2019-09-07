@@ -37,7 +37,7 @@ public class SetPrefix extends ListenerAdapter {
                     });
                 });
 
-                event.getGuild().getController().setNickname(event.getGuild().getSelfMember(), "Votrix (" + args[1] + ")").queue();
+                event.getGuild().getController().setNickname(event.getGuild().getSelfMember(), "Votrix ( " + args[1] + " )").queue();
             }
         }
     }

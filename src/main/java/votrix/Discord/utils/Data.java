@@ -32,10 +32,13 @@ public class Data {
     public static void setPrefix(String prefix) {
         db.connect();
 
-        Bson filter = new Document("prefix", getPrefix());
+        MongoCollection<Document> guild = db.getCollection("Votrix");
+        String oldPrefix = guild.find().first().getString("prefix");
+
+        Bson filter = new Document("prefix", oldPrefix);
         Bson newPrefix = new Document("prefix", prefix);
         Bson updatePrefix = new Document("$set", newPrefix);
-        db.getCollection("Votrix").updateOne(filter, updatePrefix);
+        guild.updateOne(filter, updatePrefix);
 
         db.close();
     }

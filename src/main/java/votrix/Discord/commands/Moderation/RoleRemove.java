@@ -13,7 +13,7 @@ import java.awt.*;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
-public class RoleAdd extends ListenerAdapter {
+public class RoleRemove extends ListenerAdapter {
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
@@ -22,11 +22,11 @@ public class RoleAdd extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         EmbedBuilder success = new EmbedBuilder();
         EmbedBuilder grantee = new EmbedBuilder();
-        if (args[0].equalsIgnoreCase(data.getPrefix() + "addrole")) {
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "removerole")) {
             event.getMessage().delete().queue();
             if (rc.isOwner(event) || rc.isDeveloper(event)) {
                 if (args.length < 3) {
-                    eb.setDescription("You didn't specify enough arguments. Please refer to " + data.getPrefix() + "help addrole.");
+                    eb.setDescription("You didn't specify enough arguments. Please refer to " + data.getPrefix() + "help removerole.");
                     eb.setColor(0xff5555);
                     eb.setFooter("Insufficient Arguments", data.getSelfAvatar(event));
                     eb.setTimestamp(Instant.now());
@@ -39,20 +39,20 @@ public class RoleAdd extends ListenerAdapter {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     Role role = event.getGuild().getRolesByName(args[1], true).get(0);
 
-                    eb.setDescription("Successfully added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention());
+                    eb.setDescription("Successfully removed the role " + role.getAsMention() + " from the member " + mentioned.getAsMention());
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
-                    eb.setFooter("Votrix Role Add", data.getSelfAvatar(event));
+                    eb.setFooter("Votrix Role Remove", data.getSelfAvatar(event));
 
-                    success.setDescription(event.getMember().getAsMention() + " added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention());
+                    success.setDescription(event.getMember().getAsMention() + " removed the role " + role.getAsMention() + " from the member " + mentioned.getAsMention());
                     success.setColor(new Color(data.getColor()));
                     success.setTimestamp(Instant.now());
-                    success.setFooter("Votrix Role Add Log", data.getSelfAvatar(event));
+                    success.setFooter("Votrix Role Remove Log", data.getSelfAvatar(event));
 
-                    grantee.setDescription("You've been granted the role " + role.getAsMention() + " by " + event.getMember().getAsMention());
+                    grantee.setDescription("You've been removed from the role " + role.getAsMention() + " by " + event.getMember().getAsMention());
                     grantee.setColor(new Color(data.getColor()));
                     grantee.setTimestamp(Instant.now());
-                    grantee.setFooter("Votrix Role Granted", data.getSelfAvatar(event));
+                    grantee.setFooter("Votrix Role Removed", data.getSelfAvatar(event));
 
                     mentioned.getUser().openPrivateChannel().complete().sendMessage(grantee.build()).queue((message) -> {
                         grantee.clear();
@@ -65,25 +65,24 @@ public class RoleAdd extends ListenerAdapter {
                         });
                     });
 
-                    addRole(event, role, mentioned);
+                    removeRole(event, role, mentioned);
                 } else if (args.length > 3) {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     Role role = event.getGuild().getRolesByName(args[1], true).get(0);
 
-                    eb.setDescription("Successfully added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Expires in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
-                    eb.setColor(new Color(data.getColor()));
+                    eb.setDescription("Successfully removed the role " + role.getAsMention() + " from the member " + mentioned.getAsMention() + "\n**Expires in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());                    eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
-                    eb.setFooter("Votrix Role Add", data.getSelfAvatar(event));
+                    eb.setFooter("Votrix Role Remove", data.getSelfAvatar(event));
 
-                    success.setDescription(event.getMember().getAsMention() + " added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Will expire in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
+                    success.setDescription(event.getMember().getAsMention() + " removed the role " + role.getAsMention() + " from the member " + mentioned.getAsMention() + "\n**Will expire in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
                     success.setColor(new Color(data.getColor()));
                     success.setTimestamp(Instant.now());
-                    success.setFooter("Votrix Role Add Log", data.getSelfAvatar(event));
+                    success.setFooter("Votrix Role Remove Log", data.getSelfAvatar(event));
 
-                    grantee.setDescription("You've been granted the role " + role.getAsMention() + " by " + event.getMember().getAsMention() + "\nThis role will be removed in " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
+                    grantee.setDescription("You've been removed from the role " + role.getAsMention() + " by " + event.getMember().getAsMention() + "\nThis role will be readded in " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
                     grantee.setColor(new Color(data.getColor()));
                     grantee.setTimestamp(Instant.now());
-                    grantee.setFooter("Votrix Role Granted", data.getSelfAvatar(event));
+                    grantee.setFooter("Votrix Role Removed", data.getSelfAvatar(event));
 
                     mentioned.getUser().openPrivateChannel().complete().sendMessage(grantee.build()).queue((message) -> {
                         grantee.clear();
@@ -96,36 +95,36 @@ public class RoleAdd extends ListenerAdapter {
                         });
                     });
 
-                    addRole(event, role, mentioned);
-                    removeRoleAfterTimesUp(event, role, mentioned, args[3]);
+                    removeRole(event, role, mentioned);
+                    reAddRoleAfterTimesUp(event, role, mentioned, args[3]);
                 }
             }
         }
     }
 
-    private static void addRole(GuildMessageReceivedEvent event, Role role, Member mentioned) {
-        event.getGuild().getController().addSingleRoleToMember(mentioned, role).queue();
+    private static void removeRole(GuildMessageReceivedEvent event, Role role, Member mentioned) {
+        event.getGuild().getController().removeSingleRoleFromMember(mentioned, role).queue();
     }
 
-    private static void removeRoleAfterTimesUp(GuildMessageReceivedEvent event, Role role, Member mentioned, String args) {
+    private static void reAddRoleAfterTimesUp(GuildMessageReceivedEvent event, Role role, Member mentioned, String args) {
         event.getGuild().getController().removeSingleRoleFromMember(mentioned, event.getGuild().getRolesByName("Muted", true).get(0)).queueAfter(Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
         mentioned.getUser().openPrivateChannel().complete().sendMessage("The " + role.getAsMention() + "has been removed from you.").queueAfter(Integer.parseInt(args.substring(0, args.length() - 1)), Time.getTime(args));
     }
 
     public String getName() {
-        return "Addrole";
+        return "Removerole";
     }
 
     public String getDescription() {
-        return "Adds the specified role to the mentioned member. If you specify a time length the role will be removed after the specified amount of time.";
+        return "Removes the specified role from the mentioned member. If you specify a time length the role will be readded after the specified amount of time.";
     }
 
     public String getShortDescription() {
-        return "Adds a role to a mentioned member";
+        return "Removes a role from a mentioned member";
     }
 
     public String getCommandSyntax() {
-        return "```\n" + Data.getPrefix() + "addrole {role} {@member} [time](time multiplier)\n```";
+        return "```\n" + Data.getPrefix() + "removerole {role} {@member} [time](time multiplier)\n```";
     }
 
     public String getRequiredRoles() {

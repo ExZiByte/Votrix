@@ -35,7 +35,7 @@ public class RoleRemove extends ListenerAdapter {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);
                         eb.clear();
                     });
-                } else if (args.length > 2) {
+                } else if (args.length > 2 && args.length < 4) {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     Role role = event.getGuild().getRolesByName(args[1], true).get(0);
 

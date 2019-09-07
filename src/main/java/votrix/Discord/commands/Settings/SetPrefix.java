@@ -36,6 +36,8 @@ public class SetPrefix extends ListenerAdapter {
                         success.clear();
                     });
                 });
+
+                event.getGuild().getController().setNickname(event.getGuild().getSelfMember(), "Votrix (" + args[1] + ")").queue();
             }
         }
     }
@@ -61,6 +63,6 @@ public class SetPrefix extends ListenerAdapter {
     }
 
     public boolean isDisabled() {
-        return true;
+        return false;
     }
 }

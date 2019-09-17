@@ -70,17 +70,17 @@ public class RoleAdd extends ListenerAdapter {
                     Member mentioned = event.getMessage().getMentionedMembers().get(0);
                     Role role = event.getGuild().getRolesByName(args[1], true).get(0);
 
-                    eb.setDescription("Successfully added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Expires in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
+                    eb.setDescription("Successfully added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Expires in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + " " + Time.getTime(args[3]).name());
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Role Add", data.getSelfAvatar(event));
 
-                    success.setDescription(event.getMember().getAsMention() + " added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Will expire in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
+                    success.setDescription(event.getMember().getAsMention() + " added the role " + role.getAsMention() + " to the member " + mentioned.getAsMention() + "\n**Will expire in:** " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + " " + Time.getTime(args[3]).name());
                     success.setColor(new Color(data.getColor()));
                     success.setTimestamp(Instant.now());
                     success.setFooter("Votrix Role Add Log", data.getSelfAvatar(event));
 
-                    grantee.setDescription("You've been granted the role " + role.getAsMention() + " by " + event.getMember().getAsMention() + "\nThis role will be removed in " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + Time.getTime(args[3]).name());
+                    grantee.setDescription("You've been granted the role " + role.getAsMention() + " by " + event.getMember().getAsMention() + "\nThis role will be removed in " + Integer.parseInt(args[3].substring(0, args[3].length() - 1)) + " " + Time.getTime(args[3]).name());
                     grantee.setColor(new Color(data.getColor()));
                     grantee.setTimestamp(Instant.now());
                     grantee.setFooter("Votrix Role Granted", data.getSelfAvatar(event));

@@ -23,5 +23,9 @@ public class RoleCheck {
         return event.getMember().getRoles().contains(event.getGuild().getRoleById("579409550818672670"));
     }
 
+    public static boolean isStreamer(GuildMessageReceivedEvent event){
+        return event.getMember().getRoles().contains(event.getGuild().getRoleById("592222071132651523"));
+    }
+
 
 }

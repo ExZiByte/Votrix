@@ -3,7 +3,6 @@ package votrix.Discord.commands.Miscellaneous;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.bson.Document;
@@ -16,7 +15,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -30,7 +28,7 @@ public class Suggest extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        id = suggestions.find().sort(eq("suggestionID", -1)).limit(1).first().getInteger("suggestionID") + 1;
+        id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID") + 1;
         db.close();
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();

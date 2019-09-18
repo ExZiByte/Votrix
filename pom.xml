@@ -17,6 +17,10 @@
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
         </repository>
+        <repository>
+            <id>jcenter-snapshot</id>
+            <url>https://oss.jfrog.org/artifactory/libs-release/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!-- JDA Java Discord API -->
@@ -45,6 +49,13 @@
             <groupId>com.michaelwflaherty</groupId>
             <artifactId>cleverbotapi</artifactId>
             <version>1.0.3</version>
+        </dependency>
+
+        <!-- Twitch4J Twitch API Wrapper for Java -->
+        <dependency>
+            <groupId>com.github.twitch4j</groupId>
+            <artifactId>twitch4j</artifactId>
+            <version>1.0.0-alpha.13</version>
         </dependency>
     </dependencies>
 

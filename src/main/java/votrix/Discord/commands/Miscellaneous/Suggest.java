@@ -19,18 +19,16 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.mongodb.client.model.Filters.eq;
-
 public class Suggest extends ListenerAdapter {
     Database db = new Database();
     Integer id;
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        String[] args = event.getMessage().getContentRaw().split("\\s+");
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
         id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID") + 1;
         db.close();
-        String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};

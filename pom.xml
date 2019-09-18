@@ -51,12 +51,7 @@
             <version>1.0.3</version>
         </dependency>
 
-        <!-- Twitch4J Twitch API Wrapper for Java -->
-        <dependency>
-            <groupId>com.github.twitch4j</groupId>
-            <artifactId>twitch4j</artifactId>
-            <version>1.0.0-alpha.13</version>
-        </dependency>
+
     </dependencies>
 
     <build>

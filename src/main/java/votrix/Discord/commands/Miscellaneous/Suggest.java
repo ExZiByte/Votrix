@@ -27,7 +27,7 @@ public class Suggest extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        id = Integer.parseInt(suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getString("suggestionID"));
+        id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
         db.close();
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();

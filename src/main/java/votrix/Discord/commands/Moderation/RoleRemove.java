@@ -99,6 +99,16 @@ public class RoleRemove extends ListenerAdapter {
                     removeRole(event, role, mentioned);
                     reAddRoleAfterTimesUp(event, role, mentioned, args[3]);
                 }
+            } else {
+                eb.setDescription(event.getMember().getAsMention() + " you don't have the permissions to edit roles on this guild");
+                eb.setColor(new Color(data.getColor()));
+                eb.setTimestamp(Instant.now());
+                eb.setFooter("Insufficient Permissions", data.getSelfAvatar(event));
+
+                event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                    message.delete().queueAfter(15, TimeUnit.SECONDS);
+                    eb.clear();
+                });
             }
         }
     }

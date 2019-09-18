@@ -3,10 +3,10 @@ package votrix.Discord.commands.Miscellaneous;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.bson.Document;
-import votrix.Discord.Votrix;
 import votrix.Discord.listeners.SuggestionReactAdd;
 import votrix.Discord.utils.Data;
 import votrix.Discord.utils.Database;
@@ -16,22 +16,29 @@ import java.awt.*;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class Suggest extends ListenerAdapter {
-    Integer id = 0;
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event){
+    Database db = new Database();
+    Integer id;
+
+    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        db.connect();
+        MongoCollection<Document> suggestions = db.getCollection("Suggestions");
+        id = suggestions.find().max(eq("id")).limit(1).first().getInteger("suggestionID") + 1;
+        db.close();
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
-        if(args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")){
+        if (args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")) {
             event.getMessage().delete().queue();
-            if(args.length < 2){
+            if (args.length < 2) {
                 Random rand = new Random();
                 int image = rand.nextInt(images.length);
                 eb.setDescription("I can't read your mind reeeeeeeeeeeee");
@@ -43,9 +50,8 @@ public class Suggest extends ListenerAdapter {
                     message.delete().queueAfter(30, TimeUnit.SECONDS);
                     eb.clear();
                 });
-            } else if(args.length > 1){
-                int id = 0;
-                try{
+            } else if (args.length > 1) {
+                try {
                     String sug = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
                     Webhooks webhook = new Webhooks(System.getenv("VOTRIXSUGGESTIONWEBHOOK"));
                     webhook.setAvatarUrl(event.getMember().getUser().getEffectiveAvatarUrl());
@@ -70,7 +76,12 @@ public class Suggest extends ListenerAdapter {
                     eb.setColor(new Color(data.getColor()));
                     eb.setTimestamp(Instant.now());
                     eb.setFooter("Votrix Suggestions", data.getSelfAvatar(event));
-                } catch(IOException ex){
+
+                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(15, TimeUnit.SECONDS);
+                        eb.clear();
+                    });
+                } catch (IOException ex) {
                     event.getChannel().sendMessage("Well shit there was an error with this command tell " + event.getGuild().getMemberById("79693184417931264").getAsMention() + " he retarded").queue();
                     ex.printStackTrace();
                 }
@@ -79,11 +90,11 @@ public class Suggest extends ListenerAdapter {
     }
 
     public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
-        Database db = new Database();
-        id =+ 1;
+        db.connect();
         MongoCollection suggestions = db.getCollection("Suggestions");
-        Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion));
+        Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id));
         suggestions.insertOne(doc);
+        db.close();
 
         event.getChannel().sendMessage(eb.build()).queue((message) -> {
             message.delete().queueAfter(20, TimeUnit.SECONDS);

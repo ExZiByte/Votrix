@@ -27,7 +27,7 @@ public class Suggest extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID") + 1;
+        id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
         db.close();
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
@@ -53,7 +53,7 @@ public class Suggest extends ListenerAdapter {
                     webhook.setAvatarUrl(event.getMember().getUser().getEffectiveAvatarUrl());
                     webhook.setUsername(event.getMember().getUser().getName());
                     webhook.addEmbed(new Webhooks.EmbedObject()
-                        .setTitle("New Suggestion | " + id)
+                        .setTitle("New Suggestion | " + id + 1)
                         .setColor(new Color(data.getColor()))
                         .setDescription(sug)
                     );
@@ -88,7 +88,7 @@ public class Suggest extends ListenerAdapter {
     public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
         db.connect();
         MongoCollection suggestions = db.getCollection("Suggestions");
-        Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id));
+        Document doc = new Document(id.toString(), new BasicDBObject().append("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id + 1));
         suggestions.insertOne(doc);
         db.close();
 

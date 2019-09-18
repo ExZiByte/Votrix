@@ -30,7 +30,7 @@ public class Suggest extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        id = suggestions.find().sort(eq("id", -1)).limit(1).first().getInteger("suggestionID") + 1;
+        id = suggestions.find().sort(eq("suggestionID", -1)).limit(1).first().getInteger("suggestionID") + 1;
         db.close();
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         Data data = new Data();

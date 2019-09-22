@@ -3,6 +3,7 @@ package votrix.Discord.utils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import org.bson.BSON;
 import org.bson.Document;
@@ -19,6 +20,11 @@ public class Data {
     public static TextChannel getLogChannel(GuildMessageReceivedEvent event) {
         return event.getGuild().getTextChannelById("598948078741094400");
     }
+
+    public static TextChannel getLogChannel(ReadyEvent event) {
+        return event.getJDA().getGuildById("578937882023034901").getTextChannelById("598948078741094400");
+    }
+
 
     public static String getPrefix() {
         String prefix;
@@ -52,6 +58,10 @@ public class Data {
     }
 
     public static String getSelfAvatar(GuildMessageReceivedEvent event) {
+        return event.getJDA().getSelfUser().getEffectiveAvatarUrl();
+    }
+
+    public static String getSelfAvatar(ReadyEvent event) {
         return event.getJDA().getSelfUser().getEffectiveAvatarUrl();
     }
 

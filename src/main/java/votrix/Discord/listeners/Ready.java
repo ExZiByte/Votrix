@@ -42,7 +42,7 @@ public class Ready extends ListenerAdapter {
                             System.exit(1);
                     });
                 }
-            },  60000
+            },  12*60*60*1000 //Hopefully this is 12 hours
         );
     }
 

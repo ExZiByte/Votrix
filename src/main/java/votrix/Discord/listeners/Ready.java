@@ -44,7 +44,7 @@ public class Ready extends ListenerAdapter {
                         });
                     });
                 }
-            },  180000
+            },  30000
         );
     }
 

@@ -72,11 +72,6 @@ public class Suggest extends ListenerAdapter {
                         },
                         1000
                     );
-
-                    event.getChannel().sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(15, TimeUnit.SECONDS);
-                        eb.clear();
-                    });
                 } catch (IOException ex) {
                     event.getChannel().sendMessage("Well shit there was an error with this command tell " + event.getGuild().getMemberById("79693184417931264").getAsMention() + " he retarded").queue();
                     ex.printStackTrace();

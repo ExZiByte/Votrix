@@ -58,6 +58,10 @@ public class Suggest extends ListenerAdapter {
                         .setDescription(sug)
                     );
                     webhook.execute();
+                    eb.setDescription(":white_check_mark: Successfully sent the suggestion");
+                    eb.setColor(new Color(data.getColor()));
+                    eb.setTimestamp(Instant.now());
+                    eb.setFooter("Votrix Suggestions", data.getSelfAvatar(event));
                     new java.util.Timer().schedule(
                         new java.util.TimerTask() {
                             @Override
@@ -68,11 +72,6 @@ public class Suggest extends ListenerAdapter {
                         },
                         1000
                     );
-
-                    eb.setDescription(":white_check_mark: Successfully sent the suggestion");
-                    eb.setColor(new Color(data.getColor()));
-                    eb.setTimestamp(Instant.now());
-                    eb.setFooter("Votrix Suggestions", data.getSelfAvatar(event));
 
                     event.getChannel().sendMessage(eb.build()).queue((message) -> {
                         message.delete().queueAfter(15, TimeUnit.SECONDS);
@@ -87,11 +86,11 @@ public class Suggest extends ListenerAdapter {
     }
 
     public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
-        //db.connect();
-        //MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        //Document doc = new Document(new BasicDBObject("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id + 1));
-        //suggestions.insertOne(doc);
-        //db.close();
+        db.connect();
+        MongoCollection<Document> suggestions = db.getCollection("Suggestions");
+        Document doc = new Document(new BasicDBObject("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id + 1));
+        suggestions.insertOne(doc);
+        db.close();
 
         event.getChannel().sendMessage(eb.build()).queue((message) -> {
             message.delete().queueAfter(20, TimeUnit.SECONDS);

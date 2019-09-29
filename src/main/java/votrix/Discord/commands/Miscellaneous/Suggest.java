@@ -29,6 +29,7 @@ public class Suggest extends ListenerAdapter {
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
         id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
         db.close();
+        System.out.println(id);
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
@@ -103,7 +104,7 @@ public class Suggest extends ListenerAdapter {
     }
 
     public String getDescription() {
-        return "Make a suggestion for a feature to be added to the server and or bot.";
+        return "Make a suggestion for a feature to be added to the server and/or bot.";
     }
 
     public String getShortDescription() {

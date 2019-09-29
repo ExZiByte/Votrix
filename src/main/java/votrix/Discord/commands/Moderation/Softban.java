@@ -25,7 +25,7 @@ public class Softban extends ListenerAdapter {
         EmbedBuilder banned = new EmbedBuilder();
 
         if (args[0].equalsIgnoreCase(data.getPrefix() + "softban")) {
-            event.getMessage().delete().queue();
+            event.getMessage().delete().queueAfter(20, TimeUnit.SECONDS);
             if (rc.isOwner(event) || rc.isDeveloper(event) || rc.isAdministrator(event)) {
                 if (args.length < 2) {
                     eb.setDescription("You didn't specify enough arguments \n" + data.getPrefix() + "softban @<member>");

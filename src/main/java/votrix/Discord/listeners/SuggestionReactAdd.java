@@ -15,7 +15,6 @@ public class SuggestionReactAdd extends ListenerAdapter {
                 event.getMessage().addReaction("❌").queue();
             });
             messageID = event.getMessageId();
-            System.out.print(messageID + "\n");
         }
     }
 }

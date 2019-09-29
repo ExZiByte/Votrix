@@ -29,11 +29,11 @@ public class Suggest extends ListenerAdapter {
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
         id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
         db.close();
-        System.out.println(id);
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
         if (args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")) {
+            System.out.println(id);
             event.getMessage().delete().queueAfter(20, TimeUnit.SECONDS);
             if (args.length < 2) {
                 Random rand = new Random();

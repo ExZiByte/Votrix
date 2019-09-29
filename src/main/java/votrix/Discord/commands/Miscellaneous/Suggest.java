@@ -83,7 +83,7 @@ public class Suggest extends ListenerAdapter {
     public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
         db.connect();
         MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        Document doc = new Document(new BasicDBObject("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id + 1));
+        Document doc = new Document(new BasicDBObject("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion));//.append("suggestionID", id + 1));
         suggestions.insertOne(doc);
         db.close();
 

@@ -25,10 +25,6 @@ public class Suggest extends ListenerAdapter {
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
-        db.connect();
-        MongoCollection<Document> suggestions = db.getCollection("Suggestions");
-        id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
-        db.close();
         Data data = new Data();
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
@@ -48,6 +44,10 @@ public class Suggest extends ListenerAdapter {
                 });
             } else if (args.length > 1) {
                 try {
+                    db.connect();
+                    MongoCollection<Document> suggestions = db.getCollection("Suggestions");
+                    id = suggestions.find().sort(new BasicDBObject("suggestionID", -1)).limit(1).first().getInteger("suggestionID");
+                    db.close();
                     String sug = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
                     Webhooks webhook = new Webhooks(System.getenv("VOTRIXSUGGESTIONWEBHOOK"));
                     webhook.setAvatarUrl(event.getMember().getUser().getEffectiveAvatarUrl());

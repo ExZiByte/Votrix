@@ -33,7 +33,6 @@ public class Suggest extends ListenerAdapter {
         EmbedBuilder eb = new EmbedBuilder();
         String[] images = {"https://quiver.nestedvar.dev/assets/huh.jpg", "https://quiver.nestedvar.dev/assets/jackie_chan_huh.jpg", "https://quiver.nestedvar.dev/assets/wat.png", "https://quiver.nestedvar.dev/assets/wat_magik.png"};
         if (args[0].equalsIgnoreCase(data.getPrefix() + "suggest") || args[0].equalsIgnoreCase(data.getPrefix() + "suggestion")) {
-            System.out.println(id);
             event.getMessage().delete().queueAfter(20, TimeUnit.SECONDS);
             if (args.length < 2) {
                 Random rand = new Random();
@@ -66,7 +65,7 @@ public class Suggest extends ListenerAdapter {
                                 addSuggestion(event, eb, sug, SuggestionReactAdd.messageID);
                             }
                         },
-                        250
+                        1000
                     );
 
                     eb.setDescription(":white_check_mark: Successfully sent the suggestion");
@@ -88,7 +87,7 @@ public class Suggest extends ListenerAdapter {
 
     public void addSuggestion(GuildMessageReceivedEvent event, EmbedBuilder eb, String suggestion, String messageID) {
         db.connect();
-        MongoCollection suggestions = db.getCollection("Suggestions");
+        MongoCollection<Document> suggestions = db.getCollection("Suggestions");
         Document doc = new Document(new BasicDBObject("messageID", messageID).append("finished", false).append("author", event.getAuthor().getAsTag()).append("suggestion", suggestion).append("suggestionID", id + 1));
         suggestions.insertOne(doc);
         db.close();

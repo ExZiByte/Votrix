@@ -119,7 +119,7 @@ public class Softban extends ListenerAdapter {
     }
 
     public String getShortDescription() {
-        return "Deletes message from the specified member";
+        return "Deletes messages from a member";
     }
 
     public String getRequiredRoles() {
